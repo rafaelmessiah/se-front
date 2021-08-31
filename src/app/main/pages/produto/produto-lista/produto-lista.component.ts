@@ -10,16 +10,11 @@ import { ProdutoService } from '../produto.service';
 })
 export class ProdutoListaComponent implements OnInit {
 
-  public produtos: ProdutoSimplesModel[]= [];
-
-  public gridViewRef = true;
-
+  
   constructor(private produtoService: ProdutoService) { }
 
   ngOnInit() {
-    this.produtoService.buscar().subscribe(produto=>{
-      this.produtos = produto;
-    });
+    
   }
 
 }

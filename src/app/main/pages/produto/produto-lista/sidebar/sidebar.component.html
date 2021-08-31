@@ -6,45 +6,15 @@
     <div id="product-categories">
         <h6 class="filter-title mt-0">Categorias</h6>
         <ul class="list-unstyled categories-list">
-        <li>
+        <li *ngFor="let categoria of categorias">
             <div class="custom-control custom-radio">
-            <input type="radio" id="category1" name="category-filter" class="custom-control-input" checked />
-            <label class="custom-control-label" for="category1">Computadores</label>
-            </div>
-        </li>
-        <li>
-            <div class="custom-control custom-radio">
-            <input type="radio" id="category1" name="category-filter" class="custom-control-input" checked />
-            <label class="custom-control-label" for="category1">Notebook</label>
-            </div>
-        </li>
-        <li>
-            <div class="custom-control custom-radio">
-            <input type="radio" id="category1" name="category-filter" class="custom-control-input" checked />
-            <label class="custom-control-label" for="category1">Acessorio</label>
-            </div>
-        </li>
-        <li>
-            <div class="custom-control custom-radio">
-            <input type="radio" id="category1" name="category-filter" class="custom-control-input" checked />
-            <label class="custom-control-label" for="category1">Celular</label>
-            </div>
-        </li>
-        <li>
-            <div class="custom-control custom-radio">
-            <input type="radio" id="category1" name="category-filter" class="custom-control-input" checked />
-            <label class="custom-control-label" for="category1">Tablet</label>
+            <input type="radio" id="{{categoria.categoriaEnum}}" name="category-filter" class="custom-control-input" (input)="onSelect(categoria.categoriaEnum)"/>
+            <label class="custom-control-label" for="{{categoria.categoriaEnum}}">{{categoria.descricao}}</label>
             </div>
         </li>
         </ul>
     </div>
     <!-- Categories Ends -->
-        
-    <!-- Clear Filters Starts -->
-    <div id="clear-filters">
-        <button type="button" class="btn btn-block btn-primary" rippleEffect>Clear All Filters</button>
-    </div>
-    <!-- Clear Filters Ends -->
   </div>
 </div>
 <!-- Ecommerce Sidebar Ends -->

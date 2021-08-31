@@ -1,0 +1,21 @@
+<div class="content-detached content-right">
+  <div class="content-body">
+    <section class="grid-view">
+      <div class="card ecommerce-card" *ngFor="let produto of produtos">
+        <div class="content-wrapper">
+          <div class="item-img text-center">
+        
+            <img class="img-fluid card-img-top" src="../../../../../assets/images/pages/eCommerce/1.png" alt="img-placeholder" />
+            
+          </div>
+          <div class="card-body">
+            <h3>{{produto.produtoId}}</h3>
+            <h6 class="item-name">{{produto.nome}}</h6>
+            <h4 calss="item-price">{{produto.preco | currency}}</h4>
+          </div>
+        </div>
+        </div>
+    </section>
+  </div>
+  </div>
+  

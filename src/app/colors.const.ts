@@ -1,6 +1,6 @@
 export const colors = {
   solid: {
-    primary: '#7367F0',
+    primary: '#28C76F',
     secondary: '#82868b',
     success: '#28C76F',
     info: '#00cfe8',

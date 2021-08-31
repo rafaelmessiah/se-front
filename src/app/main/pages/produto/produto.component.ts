@@ -15,7 +15,7 @@ export class ProdutoComponent implements OnInit {
 
   ngOnInit() {
     this.contentHeader = {
-      headerTitle: 'Home',
+      headerTitle: 'Produtos',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -26,7 +26,7 @@ export class ProdutoComponent implements OnInit {
             link: '/'
           },
           {
-            name: 'Sample',
+            name: 'Produtos',
             isLink: false
           }
         ]

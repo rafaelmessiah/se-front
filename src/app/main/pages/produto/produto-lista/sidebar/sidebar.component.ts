@@ -1,4 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoriaModel } from '../../Models/categoria-model';
+import { ProdutoService } from '../../produto.service';
 
 @Component({
   selector: 'produto-lista-sidebar',
@@ -8,7 +11,18 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class ProdutoListaSidebarComponent implements OnInit {
   
-  constructor() {}
+  public categorias: CategoriaModel[] =[];
 
-  ngOnInit(): void {}
+  constructor(private produtoService: ProdutoService, private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.produtoService.buscarCategorias().subscribe(categorias=>{
+      this.categorias = categorias;
+    })
+  }
+
+  onSelect(id: number){
+    this.router.navigate([id], {relativeTo: this.route});
+    console.log
+  }
 }

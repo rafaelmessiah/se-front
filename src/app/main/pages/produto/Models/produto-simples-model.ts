@@ -1,5 +1,5 @@
 export interface ProdutoSimplesModel{
-    id: number,
+    produtoId: number,
     nome: string,
     preco: number,
 }
