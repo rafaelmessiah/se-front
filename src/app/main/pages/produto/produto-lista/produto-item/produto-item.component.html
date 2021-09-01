@@ -2,20 +2,30 @@
   <div class="content-body">
     <section class="grid-view">
       <div class="card ecommerce-card" *ngFor="let produto of produtos">
-        <div class="content-wrapper">
           <div class="item-img text-center">
         
-            <img class="img-fluid card-img-top" src="../../../../../assets/images/pages/eCommerce/1.png" alt="img-placeholder" />
+            <img class="img-fluid card-img-top" src="../../../../../assets/images/produtos/{{produto.imagem}}" alt="img-placeholder" />
             
           </div>
           <div class="card-body">
-            <h3>{{produto.produtoId}}</h3>
+            <div class="item-wrapper">
+              <h6 class="item-price">{{produto.preco | currency}}</h6>
+            </div>
             <h6 class="item-name">{{produto.nome}}</h6>
-            <h4 calss="item-price">{{produto.preco | currency}}</h4>
+            
+          </div>
+          <div class="item-options text-center">
+            <a
+            routerLink="/apps/e-commerce/checkout"
+            class="btn btn-primary btn-cart"
+            rippleEffect
+          >
+            <i data-feather="shopping-cart" class="mr-25"></i>
+            <span class="add-to-cart">Adicionar ao Carrinho</span>
+          </a>
           </div>
         </div>
-        </div>
     </section>
-  </div>
-  </div>
+</div>
+
   

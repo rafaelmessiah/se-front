@@ -21,13 +21,13 @@ import { SampleModule } from 'app/main/sample/sample.module';
 
 const appRoutes: Routes = [
   {
-    path: 'pages',
-    loadChildren: () => import('./main/pages/pages.module').then(m => m.PagesModule)
-  },
-  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'produto',
+    loadChildren: () => import('./main/pages/produto/produto.module').then(m => m.ProdutoModule)
   },
   {
     path: '**',

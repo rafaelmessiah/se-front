@@ -8,13 +8,20 @@ import { CoreSidebarComponent } from '@core/components/core-sidebar/core-sidebar
 import { CoreSidebarModule } from '@core/components';
 import { ProdutoListaSidebarComponent } from './produto-lista/sidebar/sidebar.component';
 import { ProdutoItemComponent } from './produto-lista/produto-item/produto-item.component';
+import { CoreCommonModule } from '@core/common.module';
+import { ProdutoSelecionarCategoriaComponent } from './produto-selecionar-categoria/produto-selecionar-categoria.component';
 
 const routes: Routes = [
   {
-    path:'produtos',
+    path:'',
     component:ProdutoComponent,
     data: { animation: 'produtos'},
     children:[
+      {
+        path:'categoria',
+        component:ProdutoSelecionarCategoriaComponent,
+        data: {animation: 'categoria'},
+      },
       {
         path:'lista',
         component:ProdutoListaComponent,
@@ -26,7 +33,8 @@ const routes: Routes = [
             data:{animation:'produto-lista-categoria'}
           }
         ]
-      }
+      },
+      
     ]
   }
 ]
@@ -36,8 +44,9 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ContentHeaderModule,
-    CoreSidebarModule
+    CoreSidebarModule,
+    CoreCommonModule
   ],
-  declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoListaSidebarComponent,ProdutoItemComponent]
+  declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoListaSidebarComponent,ProdutoItemComponent, ProdutoSelecionarCategoriaComponent]
 })
 export class ProdutoModule { }

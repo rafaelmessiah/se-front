@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { CategoriaModel } from './Models/categoria-model';
-import { ProdutoSimplesModel } from './Models/produto-simples-model';
+import { CategoriaModel } from './Models/categoria.model';
+import { ProdutoSimplesModel } from './Models/produto-simples.model';
 
 const API_URL = environment.apiUrl
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriaModel } from '../../Models/categoria-model';
+import { CategoriaModel } from '../../Models/categoria.model';
 import { ProdutoService } from '../../produto.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { ProdutoService } from '../../produto.service';
 export class ProdutoListaSidebarComponent implements OnInit {
   
   public categorias: CategoriaModel[] =[];
+  public isOnPage: boolean
 
   constructor(private produtoService: ProdutoService, private router: Router, private route: ActivatedRoute) {}
 
@@ -19,6 +20,7 @@ export class ProdutoListaSidebarComponent implements OnInit {
     this.produtoService.buscarCategorias().subscribe(categorias=>{
       this.categorias = categorias;
     })
+
   }
 
   onSelect(id: number){

@@ -32,7 +32,7 @@ export const coreConfig: CoreConfig = {
     navbar: {
       hidden               : false,           // Boolean: true, false
       type                 : 'floating-nav',  // navbar-static-top, fixed-top, floating-nav, d-none
-      background           : 'navbar-dark',  // navbar-light. navbar-dark
+      background           : 'navbar-light',  // navbar-light. navbar-dark
       customBackgroundColor: true,            // Boolean: true, false
       backgroundColor      : ''               // BS color i.e bg-primary, bg-success
     },

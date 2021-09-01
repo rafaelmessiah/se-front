@@ -21,14 +21,10 @@ export class ProdutoComponent implements OnInit {
         type: '',
         links: [
           {
-            name: 'Home',
+            name: 'Selecionar Categoria',
             isLink: true,
             link: '/'
           },
-          {
-            name: 'Produtos',
-            isLink: false
-          }
         ]
       }
     }

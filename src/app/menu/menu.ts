@@ -4,25 +4,23 @@ export const menu: CoreMenu[] = [
   {
     id: 'home',
     title: 'Home',
-    translate: 'MENU.HOME',
     type: 'item',
     icon: 'home',
-    url: 'home'
+    url:'/home'
   },
   {
-    id: 'sample',
-    title: 'Sample',
-    translate: 'MENU.SAMPLE',
-    type: 'item',
-    icon: 'file',
-    url: 'sample'
-  },
-  {
-    id: 'produtos',
+    id: 'produto',
     title: 'Produtos',
-    translate: 'Produtos',
-    type: 'item',
-    icon: 'home',
-    url: 'pages/produtos'
-  }
-]
+    type: 'collapsible',
+    icon: 'shopping-bag',
+    children:[
+      {
+        id: 'categorias',
+        title: 'Categorias',
+        type: 'item',
+        icon: 'circle',
+        url: '/produto/categoria'
+      }
+    ]
+  },
+ ]
