@@ -1,0 +1,31 @@
+<!-- ngb-carousel component -->
+<h2>Produtos Mais Bem-Avaliados</h2>
+  <div class="row justify-content-center">
+    <div class="col-xl-4">
+      <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let produto of produtos">
+          <div class="card ecommerce-card border-primary">
+            <div class="item-img text-center">
+              <a routerLink="/detalhe/{{produto.produtoId}}">
+                <img class="img-fluid card-img-top" src="../../../../../assets/images/produtos/{{produto.imagem}}" alt="img-placeholder" />
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="item-wrapper">
+                <h6 class="item-price text-white">{{produto.preco | currency}}</h6>
+                <div class="rating rating-sm">
+                  <ngb-rating [rate]="produto.ranking" [max]="5" class="outline-none">
+                  </ngb-rating>
+                </div>
+              </div>
+              <h6 class="item-name text-white">{{produto.nome}}</h6>
+            </div>
+            <div class="item-options text-center">
+            </div>
+          </div>
+          <div class="carousel-caption"></div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+  </div>
+<!-- ngb-carousel component -->

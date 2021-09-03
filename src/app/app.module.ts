@@ -22,16 +22,20 @@ import { LayoutModule } from 'app/layout/layout.module';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/produto',
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren:() => import('./main/pages/home/home.module').then(m=>m.HomeModule)
+    path: 'miscellaneous',
+    loadChildren: () => import('./main/pages/miscellaneous/miscellaneous.module').then(m => m.MiscellaneousModule)
   },
   {
     path: 'produto',
     loadChildren: () => import('./main/pages/produto/produto.module').then(m => m.ProdutoModule)
+  },
+  {
+    path: 'authentication',
+    loadChildren: () => import('./main/pages/authentication/authentication.module').then(m => m.AuthenticationModule)
   },
   {
     path: '**',

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ProdutoSimplesModel } from '../models/produto-simples.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoriaModel } from '../models/categoria.model';
 import { ProdutoService } from '../produto.service';
 
 @Component({
@@ -10,11 +11,18 @@ import { ProdutoService } from '../produto.service';
 })
 export class ProdutoListaComponent implements OnInit {
 
+  public categorias: CategoriaModel[] =[];
   
-  constructor(private produtoService: ProdutoService) { }
+
+  constructor(private produtoService: ProdutoService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    
+    this.produtoService.buscarCategorias().subscribe(categorias=>{
+      this.categorias = categorias;
+    })
   }
-
+   
+  onSelect(id: number){
+    this.router.navigate([id], {relativeTo: this.route});
+  }
 }

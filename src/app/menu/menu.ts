@@ -2,12 +2,13 @@ import { CoreMenu } from '@core/types'
 
 export const menu: CoreMenu[] = [
   {
-    id: 'home',
+    id: 'Home',
     title: 'Home',
     type: 'item',
     icon: 'home',
-    url:'/home'
-  },
+    url: '/produto',
+    exactMatch: true
+  }, 
   {
     id: 'produto',
     title: 'Produtos',

@@ -9,7 +9,7 @@ import { ErrorComponent } from 'app/main/pages/miscellaneous/error/error.compone
 // routing
 const routes: Routes = [
   {
-    path: 'miscellaneous/error',
+    path: 'error',
     component: ErrorComponent,
     data: { animation: 'misc' }
   }

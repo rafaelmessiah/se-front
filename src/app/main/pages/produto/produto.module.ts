@@ -4,12 +4,15 @@ import { ProdutoComponent } from './produto.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { ProdutoListaComponent } from './produto-lista/produto-lista.component';
-import { CoreSidebarComponent } from '@core/components/core-sidebar/core-sidebar.component';
 import { CoreSidebarModule } from '@core/components';
-import { ProdutoListaSidebarComponent } from './produto-lista/sidebar/sidebar.component';
 import { ProdutoItemComponent } from './produto-lista/produto-item/produto-item.component';
 import { CoreCommonModule } from '@core/common.module';
-import { ProdutoSelecionarCategoriaComponent } from './produto-selecionar-categoria/produto-selecionar-categoria.component';
+import { ProdutoRankingComponent } from './produto-ranking/produto-ranking.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ProdutoDetalheComponent } from './produto-detalhe/produto-detalhe.component';
+
+
 
 const routes: Routes = [
   {
@@ -18,9 +21,9 @@ const routes: Routes = [
     data: { animation: 'produtos'},
     children:[
       {
-        path:'categoria',
-        component:ProdutoSelecionarCategoriaComponent,
-        data: {animation: 'categoria'},
+        path:'',
+        component:ProdutoRankingComponent,
+        data:{animation: 'produtos-ranking'},
       },
       {
         path:'lista',
@@ -28,13 +31,22 @@ const routes: Routes = [
         data:{animation: 'produtos-lista'},
         children:[
           {
+            path:'',
+            component:ProdutoItemComponent,
+            data:{animation:'produto-lista-categoriavazia'}
+          },
+          {
             path:':categoriaId',
             component:ProdutoItemComponent,
             data:{animation:'produto-lista-categoria'}
           }
         ]
       },
-      
+      {
+        path:'detalhe/:produtoId',
+        component:ProdutoDetalheComponent,
+        data:{animation: 'produtos-detelhe'},
+      }
     ]
   }
 ]
@@ -45,8 +57,10 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ContentHeaderModule,
     CoreSidebarModule,
-    CoreCommonModule
+    CoreCommonModule,
+    NgbModule,
+    NgSelectModule,
   ],
-  declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoListaSidebarComponent,ProdutoItemComponent, ProdutoSelecionarCategoriaComponent]
+  declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoItemComponent,ProdutoRankingComponent,ProdutoDetalheComponent]
 })
 export class ProdutoModule { }

@@ -21,7 +21,7 @@ export const coreConfig: CoreConfig = {
     appLogoImage: 'assets/images/logo/logo.svg',                  // App Logo
   },
   layout: {
-    skin  : 'default',                        // default, dark, bordered, semi-dark
+    skin  : 'dark',                        // default, dark, bordered, semi-dark
     type  : 'horizontal',                       // vertical, horizontal
     animation : 'fadeIn',                     // fadeInLeft, zoomIn , fadeIn, none
     menu : {

@@ -14,7 +14,7 @@ import { ProdutoService } from '../../produto.service';
 export class ProdutoItemComponent implements OnInit {
 
   public produtos: ProdutoSimplesModel[]= [];
-  public categoriaId: number
+  public categoriaId: number = 0
   teste: number;
 
   constructor(private produtoService: ProdutoService, private route: ActivatedRoute) { }
@@ -24,16 +24,20 @@ export class ProdutoItemComponent implements OnInit {
     //   this.categoriaId = +params['categoriaId'];
     // })
 
-
-
     // this.produtoService.buscar(this.categoriaId).subscribe(produtos=>{
     //   this.produtos = produtos;
     // });
 
+    if(this.categoriaId === 0){
+      this.produtoService.buscarTodos().subscribe(produtos =>{
+        this.produtos = produtos
+      });
+    }
+
     this.route.params
     .pipe(
       tap(params => this.categoriaId = +params['categoriaId']),
-      switchMap(() => this.produtoService.buscar(this.categoriaId)
+      switchMap(() => this.produtoService.buscarProdutos(this.categoriaId)
       .pipe(
         tap(produto => {
           this.produtos = produto;

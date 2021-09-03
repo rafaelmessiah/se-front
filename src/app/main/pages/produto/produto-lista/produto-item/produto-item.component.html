@@ -1,17 +1,21 @@
 <div class="content-detached content-right">
   <div class="content-body">
     <section class="grid-view">
-      <div class="card ecommerce-card" *ngFor="let produto of produtos">
+      <div class="card ecommerce-card bg-transparent border-primary" *ngFor="let produto of produtos">
           <div class="item-img text-center">
-        
-            <img class="img-fluid card-img-top" src="../../../../../assets/images/produtos/{{produto.imagem}}" alt="img-placeholder" />
-            
+            <a [routerLink]="['/produto', produto.produtoId, '/detalhe']">
+              <img class="img-fluid card-img-top" src="../../../../../assets/images/produtos/{{produto.imagem}}" alt="img-placeholder" />
+            </a>
           </div>
           <div class="card-body">
             <div class="item-wrapper">
-              <h6 class="item-price">{{produto.preco | currency}}</h6>
+              <h4 class="item-price">{{produto.preco | currency}}</h4>
+              <div class="rating">
+                <ngb-rating [rate]="produto.ranking" [max]="5" readonly="true" class="outline-none">
+                </ngb-rating>
+              </div>
             </div>
-            <h6 class="item-name">{{produto.nome}}</h6>
+            <h4 class="item-name">{{produto.nome}}</h4>
             
           </div>
           <div class="item-options text-center">
