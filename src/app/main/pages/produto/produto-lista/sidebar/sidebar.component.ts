@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriaModel } from '../../Models/categoria.model';
+import { CategoriaModel } from '../../models/categoria.model';
 import { ProdutoService } from '../../produto.service';
 
 @Component({

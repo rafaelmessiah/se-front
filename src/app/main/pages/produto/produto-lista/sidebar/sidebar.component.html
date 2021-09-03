@@ -6,16 +6,17 @@
     <div id="product-categories">
         <h6 class="filter-title mt-0">Categorias</h6>
         <ul class="list-unstyled categories-list">
-        <li *ngFor="let categoria of categorias">
-            <div class="custom-control custom-radio">
-            <input type="radio" id="{{categoria.categoriaEnum}}" name="category-filter" class="custom-control-input" 
-            (input)="onSelect(categoria.categoriaEnum)"/>
-            <label class="custom-control-label" for="{{categoria.categoriaEnum}}">{{categoria.descricao}}</label>
-            </div>
-        </li>
+          <li *ngFor="let categoria of categorias">
+              <div class="custom-control custom-radio">
+              <input type="radio" id="{{categoria.categoriaEnum}}" name="category-filter" class="custom-control-input" 
+              (input)="onSelect(categoria.categoriaEnum)"/>
+              <label class="custom-control-label" for="{{categoria.categoriaEnum}}">{{categoria.descricao}}</label>
+              </div>
+          </li>
         </ul>
     </div>
     <!-- Categories Ends -->
   </div>
 </div>
 <!-- Ecommerce Sidebar Ends -->
+

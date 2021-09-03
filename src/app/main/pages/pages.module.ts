@@ -11,6 +11,7 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 import { AuthenticationModule } from './authentication/authentication.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { ProdutoModule } from './produto/produto.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [],
@@ -23,7 +24,8 @@ import { ProdutoModule } from './produto/produto.module';
     FormsModule,
     AuthenticationModule,
     MiscellaneousModule,
-    ProdutoModule
+    ProdutoModule,
+    HomeModule
   ],
 
   providers: []

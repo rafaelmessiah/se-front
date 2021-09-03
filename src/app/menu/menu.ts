@@ -11,16 +11,8 @@ export const menu: CoreMenu[] = [
   {
     id: 'produto',
     title: 'Produtos',
-    type: 'collapsible',
+    type: 'item',
     icon: 'shopping-bag',
-    children:[
-      {
-        id: 'categorias',
-        title: 'Categorias',
-        type: 'item',
-        icon: 'circle',
-        url: '/produto/categoria'
-      }
-    ]
+    url: '/produto/lista'
   },
  ]

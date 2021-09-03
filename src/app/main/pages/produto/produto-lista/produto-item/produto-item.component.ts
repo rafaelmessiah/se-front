@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
-import { ProdutoSimplesModel } from '../../Models/produto-simples.model';
+import { ProdutoSimplesModel } from '../../models/produto-simples.model';
 import { ProdutoService } from '../../produto.service';
 
 @Component({

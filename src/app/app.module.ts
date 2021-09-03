@@ -17,7 +17,7 @@ import { coreConfig } from 'app/app-config';
 
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
-import { SampleModule } from 'app/main/sample/sample.module';
+
 
 const appRoutes: Routes = [
   {
@@ -26,12 +26,16 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'home',
+    loadChildren:() => import('./main/pages/home/home.module').then(m=>m.HomeModule)
+  },
+  {
     path: 'produto',
     loadChildren: () => import('./main/pages/produto/produto.module').then(m => m.ProdutoModule)
   },
   {
     path: '**',
-    redirectTo: '/pages/miscellaneous/error' //Error 404 - Page not found
+    redirectTo: '/miscellaneous/error' //Error 404 - Page not found
   }
 ];
 
@@ -59,7 +63,7 @@ const appRoutes: Routes = [
 
     // App modules
     LayoutModule,
-    SampleModule
+    
   ],
 
   bootstrap: [AppComponent]
