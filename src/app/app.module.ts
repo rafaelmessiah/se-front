@@ -34,6 +34,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/pages/produto/produto.module').then(m => m.ProdutoModule)
   },
   {
+    path: 'carrinho',
+    loadChildren: () => import('./main/pages/carrinho/carrinho.module').then(m => m.CarrinhoModule)
+  },
+  {
     path: 'authentication',
     loadChildren: () => import('./main/pages/authentication/authentication.module').then(m => m.AuthenticationModule)
   },

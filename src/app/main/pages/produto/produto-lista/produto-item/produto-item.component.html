@@ -3,7 +3,7 @@
     <section class="grid-view">
       <div class="card ecommerce-card bg-transparent border-primary" *ngFor="let produto of produtos">
           <div class="item-img text-center">
-            <a [routerLink]="['/produto', produto.produtoId, '/detalhe']">
+            <a routerLink="/produto/detalhe/{{produto.produtoId}}">
               <img class="img-fluid card-img-top" src="../../../../../assets/images/produtos/{{produto.imagem}}" alt="img-placeholder" />
             </a>
           </div>

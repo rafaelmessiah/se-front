@@ -1,0 +1,60 @@
+<!-- content-header component -->
+<div class="content-wrapper">
+  <app-content-header [contentHeader]="contentHeader"></app-content-header>
+  <div class="content-body">
+    <div class="bs-stepper checkout-tab-steps">
+      <div class=" bs-stepper-content">
+        <!-- Checkout Place order starts -->
+        <div id="step-cart" class="content">
+          <div id="place-order" class="list-view product-checkout">
+            <!-- Checkout Place Order Left starts -->
+            <div class="checkout-items">
+              <ng-container *ngFor="let item of itens">
+                <app-carrinho-item [item]="item"></app-carrinho-item>
+              </ng-container>
+            </div>
+            <!-- Checkout Place Order Left ends -->
+  
+            <!-- Checkout Place Order Right starts -->
+            <div class="checkout-options">
+              <div class="card">
+                <div class="card-body">
+                  <label class="section-label">Resumo</label>
+                  <div class="price-details">
+                    <h6 class="price-title">Price Details</h6>
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title">Itens</div>
+                        <div class="detail-amt">$598</div>
+                      </li>
+                      <li class="price-detail">
+                        <div class="detail-title">Frete</div>
+                        <div class="detail-amt text-success">Gratuito</div>
+                      </li>
+                    </ul>
+                    <hr />
+                    <ul class="list-unstyled">
+                      <li class="price-detail">
+                        <div class="detail-title detail-total">Subtotal</div>
+                        <div class="detail-amt font-weight-bolder">{{valorTotal}}</div>
+                      </li>
+                    </ul>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-block btn-next place-order"
+                      rippleEffect
+                    >
+                      Place Order
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Checkout Place Order Right ends -->
+            </div>
+          </div>
+          <!-- Checkout Place order Ends -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

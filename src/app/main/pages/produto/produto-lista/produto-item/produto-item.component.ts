@@ -15,7 +15,7 @@ export class ProdutoItemComponent implements OnInit {
 
   public produtos: ProdutoSimplesModel[]= [];
   public categoriaId: number = 0
-  teste: number;
+  public estaNoCarrinho: boolean
 
   constructor(private produtoService: ProdutoService, private route: ActivatedRoute) { }
 
@@ -44,7 +44,8 @@ export class ProdutoItemComponent implements OnInit {
         })
       ))
     ).subscribe();
-    
+
+   
   }
 
 }

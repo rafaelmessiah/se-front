@@ -9,7 +9,7 @@
       <div class="col-12 col-md-7">
         <h4>{{ produto.nome }}</h4>
         <div class="ecommerce-details-price d-flex flex-wrap mt-1">
-          <h4 class="item-price mr-1">${{ produto.preco }}</h4>
+          <h4 class="item-price mr-1">{{ produto.preco | currency }}</h4>
           <div class="rating">
             <ngb-rating [rate]="produto.ranking" [readonly]="true" [max]="5" class="outline-none">
             </ngb-rating>

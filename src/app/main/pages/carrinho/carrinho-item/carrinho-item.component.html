@@ -1,0 +1,33 @@
+<div class="card ecommerce-card">
+  <div class="item-img">
+    <a routerLink="/produto/detalhe/{{item.produtoId}}">
+      <img src="../../../../../assets/images/produtos/{{item.imagem}}" alt="img-placeholder" />
+    </a>
+  </div>
+  <div class="card-body">
+    <div class="item-name">
+      <h4 class="mb-0">
+        <a routerLink="/produto/detalhe/{{item.produtoId}}" class="text-body">{{ item.nome }}</a>
+      </h4>
+    </div>
+    <hr/>
+    <div class="item-quantity">
+      <span class="quantity-title">Qtde:</span>
+      
+      <div class="quantity-counter-wrapper">
+        <core-touchspin [numberValue]="item.qtde" [stepValue]="1" [minValue]="1" [maxValue]="10" ></core-touchspin>
+      </div>
+    </div>
+  </div>
+  <div class="item-options text-center">
+    <div class="item-wrapper">
+      <div class="item-cost">
+        <h4 class="item-price">{{ item.preco * item.qtde | currency }}</h4>
+      </div>
+    </div>
+    <button type="button" class="btn btn-light mt-1 remove-wishlist" (click)="removerItem()"  rippleEffect>
+      <i data-feather="x" class="align-middle mr-25"></i>
+      <span>Remove</span>
+    </button>
+  </div>
+</div>

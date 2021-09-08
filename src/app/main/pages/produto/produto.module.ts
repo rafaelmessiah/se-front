@@ -23,7 +23,6 @@ const routes: Routes = [
       {
         path:'',
         component:ProdutoRankingComponent,
-        data:{animation: 'produtos-ranking'},
       },
       {
         path:'lista',
