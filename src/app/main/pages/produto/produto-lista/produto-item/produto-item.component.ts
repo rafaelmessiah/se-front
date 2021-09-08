@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { CarrinhoService } from 'app/main/pages/carrinho/carrinho.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { ProdutoSimplesModel } from '../../models/produto-simples.model';
 import { ProdutoService } from '../../produto.service';

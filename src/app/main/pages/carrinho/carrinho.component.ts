@@ -44,10 +44,15 @@ export class CarrinhoComponent implements OnInit {
       }
     }
 
-    this.carrinhoService.buscarItens(this.clienteId).subscribe(itens => {
-      this.itens = itens;
-    })
+    this.carrinhoService.buscarItens(this.clienteId).subscribe();
+
+    this.carrinhoService.itensCarrinho$.subscribe(itens => this.itens = itens)
+
+    this.carrinhoService.calcularValorTotal(this.clienteId).subscribe();
+    
+    this.carrinhoService.valorTotal$.subscribe(valor => this.valorTotal = valor)
   }
 
+  
   
 }

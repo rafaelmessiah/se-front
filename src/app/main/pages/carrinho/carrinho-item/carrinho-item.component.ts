@@ -12,6 +12,7 @@ export class CarrinhoItemComponent implements OnInit {
 
   @Input() item: ItemCarrinhoModel;
   @Output() itemChange = new EventEmitter<number>();
+  clienteId = 1;
 
   constructor(private carrinhoService :CarrinhoService) { }
 
@@ -20,14 +21,12 @@ export class CarrinhoItemComponent implements OnInit {
   }
 
   removerItem(){
-    this.carrinhoService.remover(this.item.carrinhoId).subscribe(respota=>{
+    this.carrinhoService.remover(this.item.carrinhoId, this.clienteId).subscribe(respota=>{
       console.log(respota);
     })
   }
 
-  alterarQtde(novaQtde: number){
-    this.item.qtde = novaQtde
+  alterarQtde(model: {produto}){
     console.log(this.item.qtde)
   }
-
 }

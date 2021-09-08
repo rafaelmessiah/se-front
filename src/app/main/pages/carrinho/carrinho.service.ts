@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ItemCarrinhoModel } from './models/item-carrinho.model';
-import { take } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { SalvarModel } from './models/salvar.model';
 import { VerificarItemModel } from './models/verificar-item.model';
+import { BehaviorSubject } from 'rxjs';
 
 const API_URL = environment.apiUrl
 
@@ -13,27 +14,35 @@ const API_URL = environment.apiUrl
 })
 export class CarrinhoService {
 
-  
+  private itensCarrinho = new BehaviorSubject<ItemCarrinhoModel[]>([]);
+  public itensCarrinho$ = this.itensCarrinho.asObservable();
+
+  private valorTotal = new BehaviorSubject<number>(0)
+  public valorTotal$ = this.valorTotal.asObservable();
 
   constructor(private http: HttpClient) { }
 
   //Métodos Públicos
   buscarItens(clienteId: number){
     return this._buscarItens(clienteId)
+    .pipe(
+      tap(itens => this.itensCarrinho.next(itens))
+    );
   }
 
-  calcularValorTotal(itens : ItemCarrinhoModel[]){
-    let valorTotal = 5.00;
-
-    itens.forEach(item => {
-      valorTotal += item.preco * item.qtde
-    });
-
-    return valorTotal
+  calcularValorTotal(clienteId: number){
+    return this._calcularValorTotal(clienteId)
+    .pipe(
+      tap(valor => this.valorTotal.next(valor))
+    )
   }
 
-  remover(carrinhoId: number){
+  remover(carrinhoId: number, clienteId: number){
     return this._remover(carrinhoId)
+    .pipe(
+      switchMap(() => this.buscarItens(clienteId)),
+      switchMap(() => this.calcularValorTotal(clienteId))
+    )
   }
   
   inserir(model: SalvarModel){
@@ -61,6 +70,9 @@ export class CarrinhoService {
 
   private _inserir(model: SalvarModel){
     return this.http.post<boolean>(`${API_URL}/carrinho/`, model)
+    .pipe(
+      take(1)
+    )
   }
 
   private _verificarItem(model: VerificarItemModel){
@@ -72,6 +84,13 @@ export class CarrinhoService {
     };
 
     return this.http.get<boolean>(`${API_URL}/carrinho/verificar`, options)
+  }
+
+  private _calcularValorTotal(clienteId: number){
+    return this.http.get<number>(`${API_URL}/carrinho/${clienteId}/calcular`)
+    .pipe(
+      take(1)
+    )
   }
 
 }

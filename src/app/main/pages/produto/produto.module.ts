@@ -11,6 +11,9 @@ import { ProdutoRankingComponent } from './produto-ranking/produto-ranking.compo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProdutoDetalheComponent } from './produto-detalhe/produto-detalhe.component';
+import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -56,9 +59,11 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ContentHeaderModule,
     CoreSidebarModule,
+    CoreTouchspinModule,
     CoreCommonModule,
     NgbModule,
     NgSelectModule,
+    ReactiveFormsModule
   ],
   declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoItemComponent,ProdutoRankingComponent,ProdutoDetalheComponent]
 })

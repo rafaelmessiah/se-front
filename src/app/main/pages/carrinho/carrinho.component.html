@@ -25,7 +25,7 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title">Itens</div>
-                        <div class="detail-amt">$598</div>
+                        <div class="detail-amt">{{valorTotal | currency}}</div>
                       </li>
                       <li class="price-detail">
                         <div class="detail-title">Frete</div>
@@ -36,7 +36,7 @@
                     <ul class="list-unstyled">
                       <li class="price-detail">
                         <div class="detail-title detail-total">Subtotal</div>
-                        <div class="detail-amt font-weight-bolder">{{valorTotal}}</div>
+                        <div class="detail-amt font-weight-bolder">{{valorTotal | currency}}</div>
                       </li>
                     </ul>
                     <button

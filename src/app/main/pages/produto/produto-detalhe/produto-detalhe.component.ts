@@ -1,5 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { CarrinhoService } from '../../carrinho/carrinho.service';
+import { SalvarModel } from '../../carrinho/models/salvar.model';
 import { ProdutoDetalhadoModel } from '../Models/produto-detalhe.model';
 import { ProdutoService } from '../produto.service';
 
@@ -13,10 +16,14 @@ export class ProdutoDetalheComponent implements OnInit {
 
   produto: ProdutoDetalhadoModel
   produtoId: number
+  clienteId: 1
+  qtde: number = 2
+  
 
-  constructor(private produtoService: ProdutoService, private route: ActivatedRoute) { }
+  constructor(private produtoService: ProdutoService, private carrinhoService: CarrinhoService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
     this.route.params.subscribe((params: Params) => {
       this.produtoId = +params['produtoId']
     })
@@ -25,6 +32,11 @@ export class ProdutoDetalheComponent implements OnInit {
     .subscribe(produto=>
       this.produto = produto
     )
+
+  }
+
+  inserirCarrinho(value){
+    console.log(value);
   }
 
 }
