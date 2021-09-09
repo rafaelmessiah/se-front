@@ -11,11 +11,13 @@
       </h4>
     </div>
     <hr/>
+    <div class ="item-quantity">
+      <h6 class="quantity-title">Qtde:</h6>
+    </div>
+    <hr/>
     <div class="item-quantity">
-      <span class="quantity-title">Qtde:</span>
-      
       <div class="quantity-counter-wrapper">
-        <core-touchspin [(numberValue)]="item.qtde" [stepValue]="1" [minValue]="1" [maxValue]="10"></core-touchspin>
+        <ngx-number-spinner  [value]="item.qtde" [min]="1"> </ngx-number-spinner>
       </div>
     </div>
   </div>

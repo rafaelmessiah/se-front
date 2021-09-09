@@ -17,8 +17,6 @@ export class CoreTouchspinComponent implements OnInit {
   @Input('maxValue') maxValue: number = 9999;
   @Input('minValue') minValue: number = 0;
 
-  @Output() numberValueChange = new EventEmitter<number>();
-
   public disabledValueIncrement = false;
   public disabledValueDecrement = false;
 
@@ -56,7 +54,7 @@ export class CoreTouchspinComponent implements OnInit {
         this.disabledValueDecrement = true;
       }
     }
-    this.numberValueChange.emit(this.numberValue)
+    
   }
 
   decrement() {
@@ -78,7 +76,7 @@ export class CoreTouchspinComponent implements OnInit {
         this.disabledValueIncrement = true;
       }
     }
-    this.numberValueChange.emit(this.numberValue)
+    
   }
 
   ngOnInit(): void {
@@ -93,8 +91,4 @@ export class CoreTouchspinComponent implements OnInit {
     }
   }
 
-  countChange(value) {
-    // this.dateValue = value;
-    console.log(value);
-  }
 }

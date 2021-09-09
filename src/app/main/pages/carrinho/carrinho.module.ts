@@ -7,6 +7,7 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 import { CoreCommonModule } from '@core/common.module';
 import { CarrinhoItemComponent } from './carrinho-item/carrinho-item.component';
 import { CoreTouchspinModule } from '../../../../@core/components/core-touchspin/core-touchspin.module';
+import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
 
 
 const routes: Routes =[
@@ -24,7 +25,8 @@ const routes: Routes =[
     ContentHeaderModule,
     CoreCommonModule,
     NgbModule,
-    CoreTouchspinModule
+    CoreTouchspinModule,
+    NgxNumberSpinnerModule
   ],
   declarations: [CarrinhoComponent,CarrinhoItemComponent]
 })

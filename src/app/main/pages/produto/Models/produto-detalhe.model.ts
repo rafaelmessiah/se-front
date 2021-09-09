@@ -1,5 +1,5 @@
 export interface ProdutoDetalhadoModel {
-    produtoId: string,
+    produtoId: number,
     nome: string,
     preco: number,
     descricao: string,

@@ -13,6 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ProdutoDetalheComponent } from './produto-detalhe/produto-detalhe.component';
 import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
 
 
 
@@ -63,7 +64,8 @@ const routes: Routes = [
     CoreCommonModule,
     NgbModule,
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxNumberSpinnerModule
   ],
   declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoItemComponent,ProdutoRankingComponent,ProdutoDetalheComponent]
 })

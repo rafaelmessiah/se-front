@@ -16,8 +16,9 @@ export class ProdutoDetalheComponent implements OnInit {
 
   produto: ProdutoDetalhadoModel
   produtoId: number
-  clienteId: 1
+  clienteId: number = 1
   qtde: number = 2
+  estaNoCarrinho: boolean
   
 
   constructor(private produtoService: ProdutoService, private carrinhoService: CarrinhoService, private route: ActivatedRoute) { }
@@ -33,10 +34,26 @@ export class ProdutoDetalheComponent implements OnInit {
       this.produto = produto
     )
 
+    this.carrinhoService.verificarItem({clienteId:this.clienteId, produtoId:this.produtoId})
+    .subscribe(resposta =>
+      this.estaNoCarrinho = resposta 
+    )
   }
 
-  inserirCarrinho(value){
-    console.log(value);
+  inserir(){
+    this.carrinhoService.inserir({
+      produtoId : this.produto.produtoId, 
+      clienteId : this.clienteId,
+      qtde : this.qtde 
+    })
+    .subscribe(resposta =>
+      console.log(resposta)
+    )
   }
+
+  alterarQtde(novaQtde) {
+    this.qtde = novaQtde
+  }
+
 
 }

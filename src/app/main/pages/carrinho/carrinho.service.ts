@@ -14,8 +14,8 @@ const API_URL = environment.apiUrl
 })
 export class CarrinhoService {
 
-  private itensCarrinho = new BehaviorSubject<ItemCarrinhoModel[]>([]);
-  public itensCarrinho$ = this.itensCarrinho.asObservable();
+  private _itensCarrinho = new BehaviorSubject<ItemCarrinhoModel[]>([]);
+  public itensCarrinho$ = this._itensCarrinho.asObservable();
 
   private valorTotal = new BehaviorSubject<number>(0)
   public valorTotal$ = this.valorTotal.asObservable();
@@ -26,7 +26,7 @@ export class CarrinhoService {
   buscarItens(clienteId: number){
     return this._buscarItens(clienteId)
     .pipe(
-      tap(itens => this.itensCarrinho.next(itens))
+      tap(itens => this._itensCarrinho.next(itens))
     );
   }
 
@@ -38,6 +38,9 @@ export class CarrinhoService {
   }
 
   remover(carrinhoId: number, clienteId: number){
+
+
+
     return this._remover(carrinhoId)
     .pipe(
       switchMap(() => this.buscarItens(clienteId)),
