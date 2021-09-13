@@ -6,6 +6,8 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 import { CoreCommonModule } from '@core/common.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompraFinalizarComponent } from './compra-finalizar/compra-finalizar.component';
+import { CarrinhoModule } from '../carrinho/carrinho.module';
+
 
 
 const routes: Routes = [
@@ -23,8 +25,6 @@ const routes: Routes = [
   }
 ]
 
-
-
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +32,8 @@ const routes: Routes = [
     ContentHeaderModule,
     CoreCommonModule,
     ReactiveFormsModule,
+    CarrinhoModule
   ],
-  declarations: [CompraComponent, CompraFinalizarComponent]
+  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent]
 })
 export class CompraModule { }

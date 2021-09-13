@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { CarrinhoService } from '../../carrinho/carrinho.service';
 import { SalvarModel } from '../../carrinho/models/salvar.model';
-import { ProdutoDetalhadoModel } from '../Models/produto-detalhe.model';
+import { ProdutoDetalhadoModel } from '../models/produto-detalhe.model';
 import { ProdutoService } from '../produto.service';
 import { ToastrService } from 'ngx-toastr';
 

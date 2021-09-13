@@ -4,7 +4,7 @@ import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CategoriaModel } from './models/categoria.model';
-import { ProdutoDetalhadoModel } from './Models/produto-detalhe.model';
+import { ProdutoDetalhadoModel } from './models/produto-detalhe.model';
 import { ProdutoSimplesModel } from './models/produto-simples.model';
 
 const API_URL = environment.apiUrl

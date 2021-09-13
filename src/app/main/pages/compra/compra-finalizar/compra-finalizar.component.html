@@ -1,3 +1,63 @@
-<p>
-  compra-finalizar works!
-</p>
+<div class="content-wrapper">
+  <app-content-header [contentHeader]="contentHeader"></app-content-header>
+  
+  <!--Resumo dos Itens que estão no carrinho-->
+  <app-carrinho-resumo [itens]="this.itens" [valorTotal]="this.valorTotal"></app-carrinho-resumo>
+
+  <!--Formulario de Escolher a Forma de Pagamento-->
+  <form [formGroup]="iniciarCompraForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-7">
+        <div class="card">
+          <div class="card-header"><h4 class="card-title">Escolha a Forma de Pagamento</h4></div>
+          <div class="card-body">
+            <select class="form-control col-6" formControlName="formaPagamento">
+              <option *ngFor="let formaPagamento of formasPagamento" value="{{formaPagamento.formaPagamentoEnum}}">{{formaPagamento.descricao}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-7">
+        <div class="card">
+          <div class="card-header"><h4 class="card-title">Escolha o Endereço de Entrega</h4></div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Rua</th>
+                    <th>Numero</th>
+                    <th>Complemento</th>
+                    <th>Cep</th>
+                    <th>Selecionar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let endereco of enderecos">
+                    <td>{{endereco.rua}}</td>
+                    <td>{{endereco.numero}}</td>
+                    <td>{{endereco.complemento}}</td>
+                    <td>{{endereco.cep}}</td>
+                    <td>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" value="{{endereco.enderecoId}}" formControlName="endereco" />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block btn-next place-order col-7"
+    rippleEffect type="submit">
+    Finalizar Compra</button>
+  </form>
+ 
+
+</div>

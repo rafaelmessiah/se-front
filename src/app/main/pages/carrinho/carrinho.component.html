@@ -39,13 +39,14 @@
                         <div class="detail-amt font-weight-bolder">{{valorTotal | currency}}</div>
                       </li>
                     </ul>
-                    <button
+                    <a
                       type="button"
                       class="btn btn-primary btn-block btn-next place-order"
                       rippleEffect
+                      [routerLink]="['/compra/finalizar']"
                     >
                       Finalizar Compra
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

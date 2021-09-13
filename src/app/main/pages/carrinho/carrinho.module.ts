@@ -8,6 +8,7 @@ import { CoreCommonModule } from '@core/common.module';
 import { CarrinhoItemComponent } from './carrinho-item/carrinho-item.component';
 import { CoreTouchspinModule } from '../../../../@core/components/core-touchspin/core-touchspin.module';
 import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
+import { CarrinhoResumoComponent } from './carrinho-resumo/carrinho-resumo.component';
 
 
 const routes: Routes =[
@@ -28,6 +29,7 @@ const routes: Routes =[
     CoreTouchspinModule,
     NgxNumberSpinnerModule
   ],
-  declarations: [CarrinhoComponent,CarrinhoItemComponent]
+  declarations: [CarrinhoComponent,CarrinhoItemComponent,CarrinhoResumoComponent],
+  exports:[CarrinhoResumoComponent],
 })
 export class CarrinhoModule { }
