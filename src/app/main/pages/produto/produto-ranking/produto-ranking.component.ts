@@ -10,7 +10,7 @@ import { ProdutoService } from '../produto.service';
 })
 export class ProdutoRankingComponent implements OnInit {
 
-  public produtos: ProdutoSimplesModel[]
+  public produtos: ProdutoSimplesModel[] = []
   contentHeader: object
 
   constructor(private produtoService: ProdutoService) { }

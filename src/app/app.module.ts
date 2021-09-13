@@ -38,6 +38,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/pages/carrinho/carrinho.module').then(m => m.CarrinhoModule)
   },
   {
+    path: 'compra',
+    loadChildren: () => import('./main/pages/compra/compra.module').then(m => m.CompraModule)
+  },
+  {
     path: 'authentication',
     loadChildren: () => import('./main/pages/authentication/authentication.module').then(m => m.AuthenticationModule)
   },

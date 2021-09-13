@@ -26,7 +26,10 @@ export class CarrinhoItemComponent implements OnInit {
     })
   }
 
-  alterarQtde(model: {produto}){
-    console.log(this.item.qtde)
+  alterarQtde(qtde: number){
+    this.carrinhoService.alterarQtde(this.item.carrinhoId, {qtde})
+    .subscribe(resposta =>
+      console.log(resposta)
+    )
   }
 }

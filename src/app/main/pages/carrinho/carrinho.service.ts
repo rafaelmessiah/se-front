@@ -6,6 +6,7 @@ import { switchMap, take, tap } from 'rxjs/operators';
 import { SalvarModel } from './models/salvar.model';
 import { VerificarItemModel } from './models/verificar-item.model';
 import { BehaviorSubject } from 'rxjs';
+import { EdicaoQtdeModel } from './models/edicao-qtde.model';
 
 const API_URL = environment.apiUrl
 
@@ -24,8 +25,9 @@ export class CarrinhoService {
 
   //Métodos Públicos
   buscarItens(clienteId: number){
-    return this._buscarItens(clienteId)
+    return this.http.get<ItemCarrinhoModel[]>(`${API_URL}/carrinho/${clienteId}`)
     .pipe(
+      take(1),
       tap(itens => this._itensCarrinho.next(itens))
     );
   }
@@ -38,13 +40,18 @@ export class CarrinhoService {
   }
 
   remover(carrinhoId: number, clienteId: number){
+    let itens = this._itensCarrinho.getValue();
+    let excluido = itens.find(i => i.carrinhoId);
+    itens = itens.filter(i => i.carrinhoId != carrinhoId);
+    this._itensCarrinho.next(itens);
 
-
-
-    return this._remover(carrinhoId)
+    return this.http.put<boolean>(`${API_URL}/carrinho/${carrinhoId}/alterar/status`, {"statusEnum":2})
     .pipe(
-      switchMap(() => this.buscarItens(clienteId)),
-      switchMap(() => this.calcularValorTotal(clienteId))
+      take(1),
+      tap(null, err => {
+        itens.push(excluido)
+        this._itensCarrinho.next(itens)
+      })
     )
   }
   
@@ -54,6 +61,23 @@ export class CarrinhoService {
 
   verificarItem(model: VerificarItemModel){
     return this._verificarItem(model)
+  }
+
+  alterarQtde(carrinhoId:number, model: EdicaoQtdeModel){
+    let itens = this._itensCarrinho.getValue()
+    let index = itens.findIndex(a => a.carrinhoId == carrinhoId)
+    const qtdeAnterior = itens[index].qtde
+    itens[index].qtde = model.qtde
+    this._itensCarrinho.next(itens)
+
+    return this.http.put<boolean>(`${API_URL}/carrinho/${carrinhoId}/alterar/qtde`, model)
+    .pipe(
+      take(1),
+      tap(null, err => {
+        itens[index].qtde = qtdeAnterior
+        this._itensCarrinho.next(itens)
+      })
+    )
   }
  
   //Métodos Privados

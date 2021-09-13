@@ -14,8 +14,7 @@ import { ProdutoDetalheComponent } from './produto-detalhe/produto-detalhe.compo
 import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
-
-
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 const routes: Routes = [
@@ -65,7 +64,8 @@ const routes: Routes = [
     NgbModule,
     NgSelectModule,
     ReactiveFormsModule,
-    NgxNumberSpinnerModule
+    NgxNumberSpinnerModule,
+    SweetAlert2Module.forRoot()
   ],
   declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoItemComponent,ProdutoRankingComponent,ProdutoDetalheComponent]
 })

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ItemCarrinhoModel } from './models/item-carrinho.model';
 import { CarrinhoService } from './carrinho.service';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-carrinho',
@@ -16,7 +18,7 @@ export class CarrinhoComponent implements OnInit {
   public clienteId: number = 1
   public valorTotal: number
 
-  constructor(private carrinhoService: CarrinhoService) { }
+  constructor(public carrinhoService: CarrinhoService) { }
 
   ngOnInit() {
     this.contentHeader = {
@@ -44,15 +46,24 @@ export class CarrinhoComponent implements OnInit {
       }
     }
 
-    this.carrinhoService.buscarItens(this.clienteId).subscribe();
+    this.carrinhoService.buscarItens(this.clienteId).subscribe()
 
-    this.carrinhoService.itensCarrinho$.subscribe(itens => this.itens = itens)
+    this.carrinhoService.itensCarrinho$
+    .pipe(
+      tap(itens => this.valorTotal = this.calcularValorTotal(itens))
+    )
+    .subscribe(itens => this.itens = itens)
 
-    this.carrinhoService.calcularValorTotal(this.clienteId).subscribe();
-    
-    this.carrinhoService.valorTotal$.subscribe(valor => this.valorTotal = valor)
+    console.log(this.valorTotal)
   }
 
-  
+  calcularValorTotal(itens: ItemCarrinhoModel[]){
+   let valor = 0;
+   itens.forEach(element => {
+     valor += element.qtde * element.preco
+   });
+
+   return valor
+  }
   
 }

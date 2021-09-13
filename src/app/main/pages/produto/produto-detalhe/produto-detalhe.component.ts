@@ -5,6 +5,9 @@ import { CarrinhoService } from '../../carrinho/carrinho.service';
 import { SalvarModel } from '../../carrinho/models/salvar.model';
 import { ProdutoDetalhadoModel } from '../Models/produto-detalhe.model';
 import { ProdutoService } from '../produto.service';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @Component({
   selector: 'app-produto-detalhe',
@@ -17,11 +20,15 @@ export class ProdutoDetalheComponent implements OnInit {
   produto: ProdutoDetalhadoModel
   produtoId: number
   clienteId: number = 1
-  qtde: number = 2
-  estaNoCarrinho: boolean
+  qtde: number = 1
+  inseriu: boolean = false
+  inserido: boolean = false
   
 
-  constructor(private produtoService: ProdutoService, private carrinhoService: CarrinhoService, private route: ActivatedRoute) { }
+  constructor(private produtoService: ProdutoService, 
+              private carrinhoService: CarrinhoService,
+              private toastrService: ToastrService, 
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -33,11 +40,6 @@ export class ProdutoDetalheComponent implements OnInit {
     .subscribe(produto=>
       this.produto = produto
     )
-
-    this.carrinhoService.verificarItem({clienteId:this.clienteId, produtoId:this.produtoId})
-    .subscribe(resposta =>
-      this.estaNoCarrinho = resposta 
-    )
   }
 
   inserir(){
@@ -46,14 +48,28 @@ export class ProdutoDetalheComponent implements OnInit {
       clienteId : this.clienteId,
       qtde : this.qtde 
     })
-    .subscribe(resposta =>
-      console.log(resposta)
+    .subscribe(
+      () => {
+      this.inseriu = true
+    },
+      () => {
+        this.inserido = true
+      }
     )
   }
 
   alterarQtde(novaQtde) {
-    this.qtde = novaQtde
+    this.qtde = novaQtde;
   }
 
+  toastInseriu(){
+    this.toastrService.success('Inserido', 'O produto foi inserido no Carrinho', {
+      timeOut: 3000,
+      toastClass: 'toast ngx-toastr',
+      closeButton: true
+    });
+  }
+    
+  
 
 }
