@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="myModalLabel1">Adicionar um novo Cartão</h4>
+  <button type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" tabindex="0" ngbAutofocus>
+  <form [formGroup]="cadastroCartaoForm" (ngSubmit)="onSubmit()">
+    <label>Numero: </label>
+    <div class="form-group">
+      <input type="number" placeholder="Numero do Cartão" class="form-control" mask="0000 0000 0000 0000" formControlName='numero' />
+    </div>
+    <label>Bandeira: </label>
+    <div class="form-group">
+      <input type="text" placeholder="Bandeira" class="form-control" formControlName='bandeira'/>
+    </div>
+    <label>Codigo de Seguranca: </label>
+    <div class="form-group">
+      <input type="number" placeholder="Digite o codigo de segurança que esta atras do seu cartão" class="form-control" formControlName='codigoSeguranca'/>
+    </div>
+    <label>Data de Vencimento do Cartão: </label>
+    <div class="form-group">
+      <input type="date" placeholder="Data de Vencimento de Cartão" class="form-control" formControlName='dataVencimento' />
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" rippleEffect>
+    Login
+  </button>
+</div>

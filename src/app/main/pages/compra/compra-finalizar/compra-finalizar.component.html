@@ -11,14 +11,46 @@
         <div class="card">
           <div class="card-header"><h4 class="card-title">Escolha a Forma de Pagamento</h4></div>
           <div class="card-body">
-            <select class="form-control col-6" formControlName="formaPagamento">
+            <select class="form-control col-6" formControlName="formaPagamento" (change)="ativarCartao($event.target.value)">
               <option *ngFor="let formaPagamento of formasPagamento" value="{{formaPagamento.formaPagamentoEnum}}">{{formaPagamento.descricao}}</option>
             </select>
           </div>
         </div>
       </div>
     </div>
-  
+
+    <div class="row">
+      <div class="col-7" *ngIf="isCartao == true">
+        <div class="card">
+          <div class="card-header"><h4 class="card-title">Escolha o cartao</h4></div>
+          <div class="card-body">
+          <div class="card shadow-none bg-transparent border-primary col-6" *ngFor="let cartao of cartoes">
+            <div class="card-body">
+              <p class="card-text">**** **** **** **** {{cartao.numero | mascaraCartao}}</p>
+              <hr/>
+              <p class="card-text">Val: {{cartao.dataVencimento | date:'MM-YYYY'}}</p>
+              <input type="radio" value="{{cartao.cartaoCreditoId}}" formControlName="cartao"/>
+            </div>
+          </div>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-primary btn-block btn-next place-order col-4"
+            rippleEffect type="button" (click)="modalOpen(formCadastrarCartao)"
+            >
+            <i data-feather="plus-circle"></i>
+            Adicionar um novo Cartão
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #formCadastrarCartao let-modal>
+      <app-cadastrar-cartao></app-cadastrar-cartao>
+    </ng-template>
+    
+
+
     <div class="row">
       <div class="col-7">
         <div class="card">
@@ -50,14 +82,23 @@
                 </tbody>
               </table>
             </div>
+            
+          </div>
+          <div class="card-body">
+            <button class="btn btn-primary btn-block btn-next place-order col-4"
+            rippleEffect type="submit" ><i data-feather="plus-circle"></i>
+            Adicionar um novo enderço
+            </button>
           </div>
         </div>
+        
       </div>
     </div>
-    <button class="btn btn-primary btn-block btn-next place-order col-7"
+    <button class="btn btn-success btn-block btn-next place-order col-7"
     rippleEffect type="submit">
     Finalizar Compra</button>
   </form>
  
+   
 
 </div>

@@ -7,8 +7,9 @@ import { CoreCommonModule } from '@core/common.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompraFinalizarComponent } from './compra-finalizar/compra-finalizar.component';
 import { CarrinhoModule } from '../carrinho/carrinho.module';
-
-
+import { CorePipesModule } from '@core/pipes/pipes.module';
+import { CustomPipesModule } from 'app/custom-pipes/custom-pipes.module';
+import { CadastrarCartaoComponent } from './compra-finalizar/cadastrar-cartao/cadastrar-cartao.component';
 
 const routes: Routes = [
   {
@@ -32,8 +33,9 @@ const routes: Routes = [
     ContentHeaderModule,
     CoreCommonModule,
     ReactiveFormsModule,
-    CarrinhoModule
+    CarrinhoModule,
+    CustomPipesModule
   ],
-  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent]
+  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent, CadastrarCartaoComponent]
 })
 export class CompraModule { }

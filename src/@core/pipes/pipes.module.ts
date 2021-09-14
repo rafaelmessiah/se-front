@@ -7,6 +7,7 @@ import { InitialsPipe } from '@core/pipes/initials.pipe';
 import { SafePipe } from '@core/pipes/safe.pipe';
 import { StripHtmlPipe } from '@core/pipes/stripHtml.pipe';
 
+
 @NgModule({
   declarations: [InitialsPipe, FilterPipe, StripHtmlPipe, SafePipe],
   imports: [],
