@@ -48,8 +48,6 @@
     <ng-template #formCadastrarCartao let-modal>
       <app-cadastrar-cartao></app-cadastrar-cartao>
     </ng-template>
-    
-
 
     <div class="row">
       <div class="col-7">
@@ -86,14 +84,18 @@
           </div>
           <div class="card-body">
             <button class="btn btn-primary btn-block btn-next place-order col-4"
-            rippleEffect type="submit" ><i data-feather="plus-circle"></i>
+            rippleEffect type="button" (click)="modalOpen(formCadastrarEndereco)" ><i data-feather="plus-circle"></i>
             Adicionar um novo enderço
             </button>
           </div>
         </div>
-        
       </div>
     </div>
+
+    <ng-template #formCadastrarEndereco let-modal>
+      <app-cadastrar-endereco></app-cadastrar-endereco>
+    </ng-template>
+
     <button class="btn btn-success btn-block btn-next place-order col-7"
     rippleEffect type="submit">
     Finalizar Compra</button>

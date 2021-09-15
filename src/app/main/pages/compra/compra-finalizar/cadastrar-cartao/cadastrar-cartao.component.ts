@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompraService } from '../../compra.service';
+import { CadastroCartaoModel } from '../../models/cadastro-cartao.model';
+import { CartaoDetalheModel } from '../../models/cartao-detalhe.model';
 
 @Component({
   selector: 'app-cadastrar-cartao',
@@ -10,22 +12,38 @@ import { CompraService } from '../../compra.service';
 })
 export class CadastrarCartaoComponent implements OnInit {
 
-  cadastroCartaoForm: FormGroup
+  clienteId = 1
+  cadastroCartaoForm: FormGroup;
+  cadastroCartaoFormSubmitted: boolean = false
 
-  constructor(private service:CompraService) { }
+  constructor(private compraService:CompraService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.cadastroCartaoForm = new FormGroup({
-      'numero': new FormControl(null, [Validators.required, Validators.maxLength(20)]),
-      'bandeira': new FormControl(null, [Validators.required, Validators.maxLength(20)]),
-      'codigoSeguranca': new FormControl(null, [Validators.required, Validators.maxLength(3)]),
-      'dataVencimento': new FormControl(null, [Validators.required])
+    this.cadastroCartaoForm = this.formBuilder.group({
+      clienteId:[this.clienteId],
+      numero: ['',[Validators.required, Validators.maxLength(20)]],
+      bandeira: ['',[Validators.required, Validators.maxLength(20)]],
+      codigoSeguranca: ['',[Validators.required, Validators.maxLength(3)]],
+      dataVencimento: ['',[Validators.required]]
     })
+
   }
 
   onSubmit(){
-    console.log('bazinga')
+    let model:CadastroCartaoModel = this.cadastroCartaoForm.value;
+    console.log(model)
+    this.cadastrarCartao(model)
   }
 
+  cadastrarCartao(model: CadastroCartaoModel){
+    this.compraService.cadastrarCartao(model)
+    .subscribe(res => {
+      console.log(res),
+
+      err => {
+        console.log(err)
+      }
+    })
+  }
 
 }

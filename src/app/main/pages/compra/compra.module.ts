@@ -10,6 +10,7 @@ import { CarrinhoModule } from '../carrinho/carrinho.module';
 import { CorePipesModule } from '@core/pipes/pipes.module';
 import { CustomPipesModule } from 'app/custom-pipes/custom-pipes.module';
 import { CadastrarCartaoComponent } from './compra-finalizar/cadastrar-cartao/cadastrar-cartao.component';
+import { CadastrarEnderecoComponent } from './compra-finalizar/cadastrar-endereco/cadastrar-endereco.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,6 @@ const routes: Routes = [
     CarrinhoModule,
     CustomPipesModule
   ],
-  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent, CadastrarCartaoComponent]
+  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent, CadastrarCartaoComponent, CadastrarEnderecoComponent]
 })
 export class CompraModule { }

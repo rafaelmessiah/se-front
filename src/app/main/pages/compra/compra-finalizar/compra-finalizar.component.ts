@@ -93,9 +93,8 @@ export class CompraFinalizarComponent implements OnInit {
       this.formasPagamento = formas
     )
 
-    //Metodos relacionados ao endereco
-    this.enderecoService.buscar(this.clienteId).subscribe()
-    this.enderecoService.enderecos$
+    this.compraService.buscarEnderecos(this.clienteId).subscribe()
+    this.compraService.enderecos$
     .subscribe(enderecos =>
       this.enderecos = enderecos  
     )
@@ -139,8 +138,6 @@ export class CompraFinalizarComponent implements OnInit {
   modalOpen(modalBasic) {
     this.modalService.open(modalBasic);
   }
-
-
 
 }
 
