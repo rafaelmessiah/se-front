@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CategoriaModel } from '../models/categoria.model';
 import { ProdutoService } from '../produto.service';
 
+@UntilDestroy()
 @Component({
   selector: 'app-produto-lista',
   templateUrl: './produto-lista.component.html',
@@ -13,11 +15,16 @@ export class ProdutoListaComponent implements OnInit {
 
   public categorias: CategoriaModel[] =[];
   
-
-  constructor(private produtoService: ProdutoService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private produtoService: ProdutoService, 
+              private router: Router, 
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.produtoService.buscarCategorias().subscribe(categorias=>{
+    this.produtoService.buscarCategorias()
+    .pipe(
+      untilDestroyed(this)
+    )
+    .subscribe(categorias=>{
       this.categorias = categorias;
     })
   }

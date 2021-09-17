@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ProdutoSimplesModel } from '../models/produto-simples.model';
 import { ProdutoService } from '../produto.service';
 
+@UntilDestroy()
 @Component({
   selector: 'app-produto-ranking',
   templateUrl: './produto-ranking.component.html',
@@ -32,7 +34,11 @@ export class ProdutoRankingComponent implements OnInit {
       }
     }
 
-    this.produtoService.buscarRanking().subscribe(categorias=>{
+    this.produtoService.buscarRanking()
+    .pipe(
+      untilDestroyed(this)
+    )
+    .subscribe(categorias=>{
       this.produtos = categorias;
     })
   }

@@ -12,9 +12,7 @@ import { IniciarModel } from './models/iniciar.model';
 
 const API_URL = environment.apiUrl
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CompraService {
 
   constructor(private http: HttpClient) { }
@@ -25,13 +23,16 @@ export class CompraService {
   private _enderecos = new BehaviorSubject<EnderecoModel[]>([])
   public enderecos$ = this._enderecos.asObservable()
 
+
+  //Forma de Pagamento---------------------------------------------------------------------------------
   buscarFormaPagamento(){
     return this.http.get<FormaPagamentoModel[]>(`${API_URL}/formapagamento`)
     .pipe(
       take(1)
     )
   }
-
+  
+  //Compras--------------------------------------------------------------------------------------------
   cadastrarCompra(model: IniciarModel){
     return this.http.post(`${API_URL}/compra`, model)
     .pipe(
@@ -39,6 +40,7 @@ export class CompraService {
     )
   }
 
+  //Cartões-----------------------------------------------------------------------------------------------
   buscarCartoes(clienteId: number){
     return this.http.get<CartaoDetalheModel[]>(`${API_URL}/cartaocredito/${clienteId}`)
     .pipe(
@@ -65,6 +67,7 @@ export class CompraService {
     )
   }
 
+  //Endereços-----------------------------------------------------------------------------------------------
   buscarEnderecos(clienteId: number){
     return this.http.get<EnderecoModel[]>(`${API_URL}/endereco/${clienteId}`)
     .pipe(
@@ -85,5 +88,6 @@ export class CompraService {
       })
     )
   }
+  
 
 }

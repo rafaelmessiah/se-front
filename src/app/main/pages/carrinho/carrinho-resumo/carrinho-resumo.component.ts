@@ -13,13 +13,9 @@ export class CarrinhoResumoComponent implements OnInit {
   @Input() itens: ItemCarrinhoModel[]
   @Input() valorTotal: number
 
-  constructor(private carrinhoService: CarrinhoService) { }
+  constructor() { }
 
   ngOnInit() {
-    
-  }
-
-  calcularValorTotal(){
     
   }
 

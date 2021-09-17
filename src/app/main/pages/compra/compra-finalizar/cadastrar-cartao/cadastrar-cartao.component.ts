@@ -1,10 +1,13 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompraService } from '../../compra.service';
 import { CadastroCartaoModel } from '../../models/cadastro-cartao.model';
 import { CartaoDetalheModel } from '../../models/cartao-detalhe.model';
 import { ClienteService } from '../../../cliente/cliente.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-cadastrar-cartao',
   templateUrl: './cadastrar-cartao.component.html',
@@ -13,6 +16,7 @@ import { ClienteService } from '../../../cliente/cliente.service';
 })
 export class CadastrarCartaoComponent implements OnInit {
 
+  @Input() modal: NgbActiveModal
   formCadastroCartao: FormGroup;
 
   constructor(private compraService:CompraService,
@@ -40,9 +44,11 @@ export class CadastrarCartaoComponent implements OnInit {
 
   cadastrarCartao(model: CadastroCartaoModel){
     this.compraService.cadastrarCartao(model)
+    .pipe(
+      untilDestroyed(this)
+    )
     .subscribe(res => {
-      console.log(res),
-
+      this.modal.close(),
       err => {
         console.log(err)
       }

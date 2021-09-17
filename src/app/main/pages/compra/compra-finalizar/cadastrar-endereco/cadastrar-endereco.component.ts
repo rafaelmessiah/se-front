@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ClienteService } from 'app/main/pages/cliente/cliente.service';
 import { CompraService } from '../../compra.service';
 import { EnderecoModel } from '../../models/endereco.model';
 
+@UntilDestroy()
 @Component({
   selector: 'app-cadastrar-endereco',
   templateUrl: './cadastrar-endereco.component.html',
@@ -12,11 +15,13 @@ import { EnderecoModel } from '../../models/endereco.model';
 })
 export class CadastrarEnderecoComponent implements OnInit {
 
+  @Input() modal: NgbActiveModal
+
   formCadastroEndereco: FormGroup
 
   constructor(private compraService: CompraService, 
               private formBuilder: FormBuilder,
-              private clienteService: ClienteService) { }
+              private clienteService: ClienteService,) { }
 
   ngOnInit() {
     this.formCadastroEndereco = this.formBuilder.group({
@@ -35,13 +40,15 @@ export class CadastrarEnderecoComponent implements OnInit {
     }
 
     this.cadastrarCartao(this.formCadastroEndereco.value)
-
-    console.log(this.formCadastroEndereco.value)
   }
 
   cadastrarCartao(model: EnderecoModel){
     this.compraService.cadastrarEndereco(model)
-    .subscribe()
+    .pipe(
+      untilDestroyed(this)
+    )
+    .subscribe(res => {
+      this.modal.close()
+    })
   }
-
 }

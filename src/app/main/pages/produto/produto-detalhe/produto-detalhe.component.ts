@@ -7,9 +7,9 @@ import { ProdutoDetalhadoModel } from '../models/produto-detalhe.model';
 import { ProdutoService } from '../produto.service';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from '../../cliente/cliente.service';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
-
-
+@UntilDestroy()
 @Component({
   selector: 'app-produto-detalhe',
   templateUrl: './produto-detalhe.component.html',
@@ -24,7 +24,6 @@ export class ProdutoDetalheComponent implements OnInit {
   inseriu: boolean = false
   inserido: boolean = false
   
-
   constructor(private produtoService: ProdutoService, 
               private carrinhoService: CarrinhoService,
               private clienteService: ClienteService,

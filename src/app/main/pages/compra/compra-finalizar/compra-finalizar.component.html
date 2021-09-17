@@ -46,7 +46,7 @@
     </div>
 
     <ng-template #formCadastrarCartao let-modal>
-      <app-cadastrar-cartao></app-cadastrar-cartao>
+      <app-cadastrar-cartao [modal]="this.modalRef"></app-cadastrar-cartao>
     </ng-template>
 
     <div class="row">
@@ -93,7 +93,7 @@
     </div>
 
     <ng-template #formCadastrarEndereco let-modal>
-      <app-cadastrar-endereco></app-cadastrar-endereco>
+      <app-cadastrar-endereco [modal]="this.modalRef"></app-cadastrar-endereco>
     </ng-template>
 
     <button class="btn btn-success btn-block btn-next place-order col-7"
@@ -102,8 +102,7 @@
   </form>
  
   <ng-template #confirmarCompraModal let-modal>
-    <app-confirmar-compra [compraModel]="this.iniciarCompraForm.value"></app-confirmar-compra>
+    <app-confirmar-compra [compraModel]="this.iniciarCompra" [modal]="this.modalRef"></app-confirmar-compra>
   </ng-template>
-   
 
 </div>

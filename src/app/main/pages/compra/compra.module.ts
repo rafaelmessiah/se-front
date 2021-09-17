@@ -7,12 +7,12 @@ import { CoreCommonModule } from '@core/common.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompraFinalizarComponent } from './compra-finalizar/compra-finalizar.component';
 import { CarrinhoModule } from '../carrinho/carrinho.module';
-import { CorePipesModule } from '@core/pipes/pipes.module';
 import { CustomPipesModule } from 'app/custom-pipes/custom-pipes.module';
 import { CadastrarCartaoComponent } from './compra-finalizar/cadastrar-cartao/cadastrar-cartao.component';
 import { CadastrarEnderecoComponent } from './compra-finalizar/cadastrar-endereco/cadastrar-endereco.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmarCompraComponent } from './compra-finalizar/confirmar-compra/confirmar-compra.component';
+import { CompraService } from './compra.service';
 
 const routes: Routes = [
   {
@@ -40,6 +40,7 @@ const routes: Routes = [
     CustomPipesModule,
     NgbModule
   ],
-  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent, CadastrarCartaoComponent, CadastrarEnderecoComponent, ConfirmarCompraComponent]
+  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent, CadastrarCartaoComponent, CadastrarEnderecoComponent, ConfirmarCompraComponent],
+  providers: [CompraService]
 })
 export class CompraModule { }

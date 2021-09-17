@@ -4,7 +4,10 @@ import { CarrinhoService } from './carrinho.service';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ClienteService } from '../cliente/cliente.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { until } from 'selenium-webdriver';
 
+@UntilDestroy()
 @Component({
   selector: 'app-carrinho',
   templateUrl: './carrinho.component.html',
@@ -46,10 +49,15 @@ export class CarrinhoComponent implements OnInit {
       }
     }
 
-    this.carrinhoService.buscarItens(this.clienteService.clienteId).subscribe()
+    this.carrinhoService.buscarItens(this.clienteService.clienteId)
+    .pipe(
+      untilDestroyed(this)
+    )
+    .subscribe()
 
     this.carrinhoService.itensCarrinho$
     .pipe(
+      untilDestroyed(this),
       tap(itens => this.valorTotal = this.calcularValorTotal(itens))
     )
     .subscribe(itens => this.itens = itens)

@@ -45,8 +45,6 @@ export class ProdutoItemComponent implements OnInit {
         })
       ))
     ).subscribe();
-
-   
+    
   }
-
 }
