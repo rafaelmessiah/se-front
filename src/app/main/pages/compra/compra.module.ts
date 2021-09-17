@@ -11,6 +11,8 @@ import { CorePipesModule } from '@core/pipes/pipes.module';
 import { CustomPipesModule } from 'app/custom-pipes/custom-pipes.module';
 import { CadastrarCartaoComponent } from './compra-finalizar/cadastrar-cartao/cadastrar-cartao.component';
 import { CadastrarEnderecoComponent } from './compra-finalizar/cadastrar-endereco/cadastrar-endereco.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmarCompraComponent } from './compra-finalizar/confirmar-compra/confirmar-compra.component';
 
 const routes: Routes = [
   {
@@ -35,8 +37,9 @@ const routes: Routes = [
     CoreCommonModule,
     ReactiveFormsModule,
     CarrinhoModule,
-    CustomPipesModule
+    CustomPipesModule,
+    NgbModule
   ],
-  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent, CadastrarCartaoComponent, CadastrarEnderecoComponent]
+  declarations: [CompraComponent, CompraFinalizarComponent, CompraFinalizarComponent, CadastrarCartaoComponent, CadastrarEnderecoComponent, ConfirmarCompraComponent]
 })
 export class CompraModule { }

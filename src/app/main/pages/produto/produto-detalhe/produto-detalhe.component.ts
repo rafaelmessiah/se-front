@@ -6,6 +6,7 @@ import { SalvarModel } from '../../carrinho/models/salvar.model';
 import { ProdutoDetalhadoModel } from '../models/produto-detalhe.model';
 import { ProdutoService } from '../produto.service';
 import { ToastrService } from 'ngx-toastr';
+import { ClienteService } from '../../cliente/cliente.service';
 
 
 
@@ -19,7 +20,6 @@ export class ProdutoDetalheComponent implements OnInit {
 
   produto: ProdutoDetalhadoModel
   produtoId: number
-  clienteId: number = 1
   qtde: number = 1
   inseriu: boolean = false
   inserido: boolean = false
@@ -27,7 +27,7 @@ export class ProdutoDetalheComponent implements OnInit {
 
   constructor(private produtoService: ProdutoService, 
               private carrinhoService: CarrinhoService,
-              private toastrService: ToastrService, 
+              private clienteService: ClienteService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class ProdutoDetalheComponent implements OnInit {
   inserir(){
     this.carrinhoService.inserir({
       produtoId : this.produto.produtoId, 
-      clienteId : this.clienteId,
+      clienteId : this.clienteService.clienteId,
       qtde : this.qtde 
     })
     .subscribe(
@@ -61,15 +61,4 @@ export class ProdutoDetalheComponent implements OnInit {
   alterarQtde(novaQtde) {
     this.qtde = novaQtde;
   }
-
-  toastInseriu(){
-    this.toastrService.success('Inserido', 'O produto foi inserido no Carrinho', {
-      timeOut: 3000,
-      toastClass: 'toast ngx-toastr',
-      closeButton: true
-    });
-  }
-    
-  
-
 }

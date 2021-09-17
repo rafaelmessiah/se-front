@@ -5,14 +5,14 @@
   <app-carrinho-resumo [itens]="this.itens" [valorTotal]="this.valorTotal"></app-carrinho-resumo>
 
   <!--Formulario de Escolher a Forma de Pagamento-->
-  <form [formGroup]="iniciarCompraForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="iniciarCompraForm" (ngSubmit)="onSubmit(confirmarCompraModal)">
     <div class="row">
       <div class="col-7">
         <div class="card">
           <div class="card-header"><h4 class="card-title">Escolha a Forma de Pagamento</h4></div>
           <div class="card-body">
-            <select class="form-control col-6" formControlName="formaPagamento" (change)="ativarCartao($event.target.value)">
-              <option *ngFor="let formaPagamento of formasPagamento" value="{{formaPagamento.formaPagamentoEnum}}">{{formaPagamento.descricao}}</option>
+            <select class="form-control col-6" formControlName="formaPagamentoEnum" (change)="ativarCartao($event.target.value)">
+              <option *ngFor="let formaPagamento of formasPagamento" [value]="formaPagamento.formaPagamentoEnum">{{formaPagamento.descricao}}</option>
             </select>
           </div>
         </div>
@@ -29,7 +29,7 @@
               <p class="card-text">**** **** **** **** {{cartao.numero | mascaraCartao}}</p>
               <hr/>
               <p class="card-text">Val: {{cartao.dataVencimento | date:'MM-YYYY'}}</p>
-              <input type="radio" value="{{cartao.cartaoCreditoId}}" formControlName="cartao"/>
+              <input type="radio" value="{{cartao.cartaoCreditoId}}" formControlName="cartaoCreditoId"/>
             </div>
           </div>
           </div>
@@ -73,7 +73,7 @@
                     <td>{{endereco.cep}}</td>
                     <td>
                       <div class="custom-control custom-radio">
-                        <input type="radio" value="{{endereco.enderecoId}}" formControlName="endereco" />
+                        <input type="radio" value="{{endereco.enderecoId}}" formControlName="enderecoId" />
                       </div>
                     </td>
                   </tr>
@@ -101,6 +101,9 @@
     Finalizar Compra</button>
   </form>
  
+  <ng-template #confirmarCompraModal let-modal>
+    <app-confirmar-compra [compraModel]="this.iniciarCompraForm.value"></app-confirmar-compra>
+  </ng-template>
    
 
 </div>

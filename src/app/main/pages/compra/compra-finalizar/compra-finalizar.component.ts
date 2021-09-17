@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { CarrinhoService } from '../../carrinho/carrinho.service';
 import { ItemCarrinhoModel } from '../../carrinho/models/item-carrinho.model';
-import { EnderecoService } from '../../endereco/endereco.service';
-import { EnderecoModel } from '../../endereco/models/endereco.model';
+
 import { CompraService } from '../compra.service';
 import { CartaoDetalheModel } from '../models/cartao-detalhe.model';
 import { FormaPagamentoModel } from '../models/forma-pagamento.model';
 import { IniciarModel } from '../models/iniciar.model';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClienteService } from '../../cliente/cliente.service';
+import { EnderecoModel } from '../models/endereco.model';
+
 @UntilDestroy()
 @Component({
   selector: 'app-compra-finalizar',
@@ -23,7 +25,6 @@ export class CompraFinalizarComponent implements OnInit {
 
   contentHeader: object
   itens: ItemCarrinhoModel[] =[]
-  clienteId: number = 1
   valorTotal: number
   formasPagamento: FormaPagamentoModel[]=[]
   enderecos: EnderecoModel[] = []
@@ -35,7 +36,8 @@ export class CompraFinalizarComponent implements OnInit {
 
   constructor(private carrinhoService: CarrinhoService,
               private compraService: CompraService,
-              private enderecoService: EnderecoService,
+              private clienteService: ClienteService,
+              private formBuilder: FormBuilder,
               private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -69,21 +71,26 @@ export class CompraFinalizarComponent implements OnInit {
       }
     }
 
-    this.iniciarCompraForm = new FormGroup({
-      'endereco': new FormControl(null),
-      'formaPagamento': new FormControl('1'),
-      'cartao': new FormControl(null)
-    })  
+    
+    /*
+      Inicializa o Formulário
+     */
+      this.iniciarCompraForm = this.formBuilder.group({
+        clienteId:[this.clienteService.clienteId],
+        enderecoId:[null, Validators.required],
+        formaPagamentoEnum:[1,Validators.required],
+        cartaoCreditoId:[null]
+      })
 
     //Metodos relacionados ao carrinho
-    this.carrinhoService.buscarItens(this.clienteId).subscribe()
+    this.carrinhoService.buscarItens(this.clienteService.clienteId).subscribe()
     this.carrinhoService.itensCarrinho$
     .pipe(
       tap(itens => this.valorTotal = this.calcularValorTotal(itens))
     )
     .subscribe(itens => this.itens = itens)
 
-    this.compraService.buscarCartoes(this.clienteId).subscribe()
+    this.compraService.buscarCartoes(this.clienteService.clienteId).subscribe()
     this.compraService.cartoes$
     .subscribe(cartoes => this.cartoes = cartoes)
     
@@ -93,7 +100,7 @@ export class CompraFinalizarComponent implements OnInit {
       this.formasPagamento = formas
     )
 
-    this.compraService.buscarEnderecos(this.clienteId).subscribe()
+    this.compraService.buscarEnderecos(this.clienteService.clienteId).subscribe()
     this.compraService.enderecos$
     .subscribe(enderecos =>
       this.enderecos = enderecos  
@@ -109,21 +116,19 @@ export class CompraFinalizarComponent implements OnInit {
     return valor
   }
 
-  onSubmit(){
-    let model = 
-    {
-      clienteId: this.clienteId, 
-      enderecoId: +this.iniciarCompraForm.controls['endereco'].value,
-      formaPagamentoEnum: +this.iniciarCompraForm.controls['formaPagamento'].value,
-      cartaoCreditoId: this.iniciarCompraForm.controls['cartao'].value
-    }
-    this.compraService.cadastrar(model)
-    .subscribe(resposta =>
-      console.log(resposta),
-      err =>
-      console.log(err)
-    )
+  onSubmit(modalBasic){
+   if(this.iniciarCompraForm.invalid){
+     return;
+   }
+
+   let model: IniciarModel = {
+      clienteId: this.iniciarCompraForm.controls['clienteId'].value,
+      enderecoId: this.iniciarCompraForm.controls['enderecoId'].value,
+      formaPagamentoEnum: this.iniciarCompraForm.controls['formaPagamentoEnum'].value,
+      cartaoCreditoId: this.iniciarCompraForm.controls['cartaoCreditoId'].value
+   }
     
+   this.compraService.cadastrarCompra(model).subscribe((resposta => console.log(resposta)))
   }
 
   ativarCartao(formaPagamento){
@@ -136,7 +141,7 @@ export class CompraFinalizarComponent implements OnInit {
   }
 
   modalOpen(modalBasic) {
-    this.modalService.open(modalBasic);
+    this.modalService.open(modalBasic ,{centered:true});
   }
 
 }

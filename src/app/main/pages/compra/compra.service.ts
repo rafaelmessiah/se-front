@@ -32,7 +32,7 @@ export class CompraService {
     )
   }
 
-  cadastrar(model: IniciarModel){
+  cadastrarCompra(model: IniciarModel){
     return this.http.post(`${API_URL}/compra`, model)
     .pipe(
       take(1)

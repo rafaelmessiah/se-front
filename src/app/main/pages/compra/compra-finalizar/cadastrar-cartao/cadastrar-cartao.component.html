@@ -5,23 +5,47 @@
   </button>
 </div>
 <div class="modal-body" tabindex="0" ngbAutofocus>
-  <form [formGroup]="cadastroCartaoForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formCadastroCartao" (ngSubmit)="onSubmit()">
     <label>Numero: </label>
     <div class="form-group">
-      <input type="text" placeholder="Numero do Cartão" class="form-control" mask="0000 0000 0000 0000" formControlName='numero' 
+      <input type="text" placeholder="Numero do Cartão" class="form-control" formControlName='numero' 
       />
+      <ngb-alert type="danger" *ngIf="!formCadastroCartao.get('numero').valid && formCadastroCartao.get('numero').touched" [dismissible]="false">
+        <div class="alert-body">
+          <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+          <span>O Número do cartão é <strong>obrigatorio</strong> e deve conter <strong>16 dígitos</strong></span>
+        </div>
+      </ngb-alert>
     </div>
     <label>Bandeira: </label>
     <div class="form-group">
       <input type="text" placeholder="Bandeira" class="form-control" formControlName='bandeira'/>
+      <ngb-alert type="danger" *ngIf="!formCadastroCartao.get('bandeira').valid && formCadastroCartao.get('bandeira').touched" [dismissible]="false">
+        <div class="alert-body">
+          <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+          <span>A bandeira é <strong>obrigatoria</strong> e não pode ultrapassar <strong>20 dígitos</strong></span>
+        </div>
+      </ngb-alert>
     </div>
     <label>Codigo de Seguranca: </label>
     <div class="form-group">
       <input type="text" placeholder="Digite o codigo de segurança que esta atras do seu cartão" class="form-control" formControlName='codigoSeguranca'/>
+      <ngb-alert type="danger" *ngIf="!formCadastroCartao.get('codigoSeguranca').valid && formCadastroCartao.get('codigoSeguranca').touched" [dismissible]="false">
+        <div class="alert-body">
+          <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+          <span>O Código de Seguranca é <strong>obrigatório</strong> e deve ser exatamente <strong>3 dígitos</strong></span>
+        </div>
+      </ngb-alert>
     </div>
     <label>Data de Vencimento do Cartão: </label>
     <div class="form-group">
       <input type="date" placeholder="Data de Vencimento de Cartão" class="form-control" formControlName='dataVencimento' />
+      <ngb-alert type="danger" *ngIf="!formCadastroCartao.get('dataVencimento').valid && formCadastroCartao.get('dataVencimento').touched" [dismissible]="false">
+        <div class="alert-body">
+          <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+          <span>A Data de Vencimento é <strong>obrigatória</strong></span>
+        </div>
+      </ngb-alert>
     </div>
     <button class="btn btn-primary" rippleEffect>
       Cadastrar

@@ -9,23 +9,48 @@
     <label>Cep: </label>
     <div class="form-group">
       <input type="text" class="form-control" formControlName='cep'/>
-      <div *ngIf="!formCadastroEndereco.get('cep').valid" class=""></div>
-
+      <ngb-alert type="danger" *ngIf="!formCadastroEndereco.get('cep').valid && formCadastroEndereco.get('cep').touched" [dismissible]="false">
+        <div class="alert-body">
+          <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+          <span>O CEP deve conter exatamente 8 dígitos</span>
+        </div>
+      </ngb-alert>
     </div>
     <label>Rua: </label>
     <div class="form-group">
       <input type="text" class="form-control" formControlName='rua'>
-        <div *ngIf="!formCadastroEndereco.get('rua').valid && formCadastroEndereco.get('rua').touched">
-          Digita direito
+      <ngb-alert type="danger" *ngIf="!formCadastroEndereco.get('rua').valid && formCadastroEndereco.get('rua').touched" [dismissible]="false">
+        <div class="alert-body">
+          <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+          <span>
+            O nome da rua é obrigatorio. Não pode ultrapassar 100 dígitos
+          </span>
         </div>
+      </ngb-alert>
     </div>
     <label>Numero: </label>
     <div class="form-group">
       <input type="text" class="form-control" formControlName='numero'>
+      <ngb-alert type="danger" *ngIf="!formCadastroEndereco.get('numero').valid && formCadastroEndereco.get('numero').touched" [dismissible]="false">
+        <div class="alert-body">
+          <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+          <span>
+            O número é obrigatorio. Não pode ultrapassar 30 dígitos
+          </span>
+        </div>
+      </ngb-alert>
     </div>
     <label>Complemento: </label>
     <div class="form-group">
       <input type="text" class="form-control" formControlName='complemento'>
+      <ngb-alert type="danger" *ngIf="!formCadastroEndereco.get('complemento').valid && formCadastroEndereco.get('complemento').touched" [dismissible]="false">
+        <div class="alert-body">
+          <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+          <span>
+            O complemento é obrigatorio. Não pode ultrapassar 30 dígitos
+          </span>
+        </div>
+      </ngb-alert>
     </div>
     <button class="btn btn-primary" rippleEffect>
       Cadastrar

@@ -1,0 +1,23 @@
+
+<div class="modal-header">
+  <h4 class="modal-title" id="myModalLabel1">Deseja Relamente Realizar Essa Compra</h4>
+  <button type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" tabindex="0" ngbAutofocus>
+  
+  <button class="btn btn-danger btn-block btn-next place-order"
+  rippleEffect type="button">
+  <i data-feather="x"></i>
+    Não confirmar
+  </button>
+  <button class="btn btn-success btn-block btn-next place-order"
+  rippleEffect type="button" (click)="cadastrarCompra()">
+  <i data-feather="check"></i>
+    Confirmar
+  </button>
+</div>
+<div class="modal-footer">
+  
+</div>

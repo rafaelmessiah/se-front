@@ -3,6 +3,7 @@ import { ItemCarrinhoModel } from './models/item-carrinho.model';
 import { CarrinhoService } from './carrinho.service';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ClienteService } from '../cliente/cliente.service';
 
 @Component({
   selector: 'app-carrinho',
@@ -15,10 +16,9 @@ export class CarrinhoComponent implements OnInit {
 
   public itens: ItemCarrinhoModel[] =[]
   public contentHeader: object
-  public clienteId: number = 1
   public valorTotal: number
 
-  constructor(public carrinhoService: CarrinhoService) { }
+  constructor(public carrinhoService: CarrinhoService, private clienteService: ClienteService) { }
 
   ngOnInit() {
     this.contentHeader = {
@@ -46,7 +46,7 @@ export class CarrinhoComponent implements OnInit {
       }
     }
 
-    this.carrinhoService.buscarItens(this.clienteId).subscribe()
+    this.carrinhoService.buscarItens(this.clienteService.clienteId).subscribe()
 
     this.carrinhoService.itensCarrinho$
     .pipe(
