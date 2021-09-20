@@ -1,0 +1,33 @@
+<div class="content-wrapper">
+  <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header"><h4 class="card-title">Meus Pedidos</h4></div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Numero do Pedido</th>
+                <th>Data Compra</th>
+                <th>Valor Total</th>
+                <th>Status da Compra</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pedido of pedidos">
+                <td>#{{pedido.compraId}}</td>
+                <td>{{pedido.dataCompra | date:"dd-MM-YYYY"}}</td>
+                <td>{{pedido.valorFinal | currency}}</td>
+                <td>{{pedido.statusCompra}}</td>
+                <a class="btn btn-primary" [routerLink]="['/pedido/detalhe/', pedido.compraId]">Vizualizar Compra</a>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

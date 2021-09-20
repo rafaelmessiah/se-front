@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { EdicaoQtdeModel } from './models/edicao-qtde.model';
 
 
+
 const API_URL = environment.apiUrl
 const apiViaCep = "viacep.com.br/ws/01001000/json/"
 
@@ -80,33 +81,29 @@ export class CarrinhoService {
   }
 
   testeCorreio(){
-    //Parametros
-    let params = new HttpParams({
-      fromObject:{
-        'nCdEmpresa': '08082650',
-        'sDsSenha': '564321',
-        'sCepOrigem': '70002900',
-        'sCepDestino': '04547000',
-        'nVlPeso': '1',
-        'nCdFormato': '1',
-        'nVlComprimento': '20',
-        'nVlAltura': '20',
-        'nVlLargura': '20',
-        'sCdMaoPropria': 'n',
-        'nVlValorDeclarado': '0',
-        'sCdAvisoRecebimento': 'n',
-        'nCdServico': '04510',
-        'nVlDiametro': '0',
-        'StrRetorno': 'xml',
-        'nIndicaCalculo': '0',
-      }
-    });
-    
-    return this.http.post(`http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=70002900&sCepDestino=04547000&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3`, {params:params})
+    let params = new HttpParams
+
+    params.set('nCdEmpresa', '08082650');
+    params.set('sDsSenha', '564321');
+    params.set('sCepOrigem', '70002900');
+    params.set('sCepDestino', '04547000');
+    params.set('nVlPeso', '1');
+    params.set('nCdFormato', '1');
+    params.set('nVlComprimento', '20');
+    params.set('nVlAltura', '20');
+    params.set('nVlLargura', '20');
+    params.set('sCdMaoPropria', 'n');
+    params.set('nVlValorDeclarado', '0');
+    params.set('sCdAvisoRecebimento', 'n');
+    params.set('nCdServico', '04510');
+    params.set('nVlDiametro', '0');
+    params.set('StrRetorno', 'xml');
+    params.set('nIndicaCalculo', '0');
+
+    return this.http.post(`http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?`, {params})
     .pipe(
       take(1)
     )
-
   }
 
   testeViaCep(){
@@ -115,5 +112,7 @@ export class CarrinhoService {
       take(1)
       )
   }
+
+  
   
 }
