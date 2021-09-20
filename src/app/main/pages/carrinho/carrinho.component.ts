@@ -73,5 +73,15 @@ export class CarrinhoComponent implements OnInit {
 
    return valor
   }
-  
+   
+  testeCorreio(){
+    this.carrinhoService.testeCorreio().subscribe(
+      res => console.log(res)
+    )
+  }
+
+  testeViaCep(){
+    this.carrinhoService.testeViaCep()
+    .subscribe(res => console.log(res))
+  }
 }

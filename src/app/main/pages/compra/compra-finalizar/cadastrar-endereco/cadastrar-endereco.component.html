@@ -8,7 +8,7 @@
   <form [formGroup]="formCadastroEndereco" (ngSubmit)="onSubmit()">
     <label>Cep: </label>
     <div class="form-group">
-      <input type="text" class="form-control" formControlName='cep'/>
+      <input type="text" class="form-control" formControlName='cep' (change)="this.atualizarCampos()"/>
       <ngb-alert type="danger" *ngIf="!formCadastroEndereco.get('cep').valid && formCadastroEndereco.get('cep').touched" [dismissible]="false">
         <div class="alert-body">
           <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
@@ -18,7 +18,7 @@
     </div>
     <label>Rua: </label>
     <div class="form-group">
-      <input type="text" class="form-control" formControlName='rua'>
+      <input type="text" disabled="true" class="form-control" formControlName='rua'>
       <ngb-alert type="danger" *ngIf="!formCadastroEndereco.get('rua').valid && formCadastroEndereco.get('rua').touched" [dismissible]="false">
         <div class="alert-body">
           <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>

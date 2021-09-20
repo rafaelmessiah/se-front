@@ -9,6 +9,7 @@ import { CartaoDetalheModel } from './models/cartao-detalhe.model';
 import { EnderecoModel } from './models/endereco.model';
 import { FormaPagamentoModel } from './models/forma-pagamento.model';
 import { IniciarModel } from './models/iniciar.model';
+import { ViaCepRespostaModel } from './models/viacep-resposta.model';
 
 const API_URL = environment.apiUrl
 
@@ -88,6 +89,12 @@ export class CompraService {
       })
     )
   }
-  
 
+  buscarCep(cep: string){
+    return this.http.get<ViaCepRespostaModel>(`//viacep.com.br/ws/${cep}/json/`)
+    .pipe(
+      take(1)
+    )
+  }
+  
 }

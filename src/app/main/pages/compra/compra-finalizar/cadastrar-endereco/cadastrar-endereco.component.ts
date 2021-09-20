@@ -39,10 +39,10 @@ export class CadastrarEnderecoComponent implements OnInit {
       return;
     }
 
-    this.cadastrarCartao(this.formCadastroEndereco.value)
+    this.cadastrarEndereco(this.formCadastroEndereco.value)
   }
 
-  cadastrarCartao(model: EnderecoModel){
+  cadastrarEndereco(model: EnderecoModel){
     this.compraService.cadastrarEndereco(model)
     .pipe(
       untilDestroyed(this)
@@ -50,5 +50,13 @@ export class CadastrarEnderecoComponent implements OnInit {
     .subscribe(res => {
       this.modal.close()
     })
+  }
+
+  atualizarCampos(){
+    this.compraService.buscarCep(this.formCadastroEndereco.controls['cep'].value)
+    .subscribe(endereco => {
+      this.formCadastroEndereco.controls['rua'].setValue(endereco.logradouro),
+      this.formCadastroEndereco.controls['complemento'].setValue(endereco.complemento)
+     })
   }
 }

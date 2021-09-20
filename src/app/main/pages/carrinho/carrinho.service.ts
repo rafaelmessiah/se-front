@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ItemCarrinhoModel } from './models/item-carrinho.model';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { SalvarModel } from './models/salvar.model';
@@ -8,7 +8,9 @@ import { VerificarItemModel } from './models/verificar-item.model';
 import { BehaviorSubject } from 'rxjs';
 import { EdicaoQtdeModel } from './models/edicao-qtde.model';
 
+
 const API_URL = environment.apiUrl
+const apiViaCep = "viacep.com.br/ws/01001000/json/"
 
 @Injectable()
 export class CarrinhoService {
@@ -76,5 +78,42 @@ export class CarrinhoService {
       })
     )
   }
- 
+
+  testeCorreio(){
+    //Parametros
+    let params = new HttpParams({
+      fromObject:{
+        'nCdEmpresa': '08082650',
+        'sDsSenha': '564321',
+        'sCepOrigem': '70002900',
+        'sCepDestino': '04547000',
+        'nVlPeso': '1',
+        'nCdFormato': '1',
+        'nVlComprimento': '20',
+        'nVlAltura': '20',
+        'nVlLargura': '20',
+        'sCdMaoPropria': 'n',
+        'nVlValorDeclarado': '0',
+        'sCdAvisoRecebimento': 'n',
+        'nCdServico': '04510',
+        'nVlDiametro': '0',
+        'StrRetorno': 'xml',
+        'nIndicaCalculo': '0',
+      }
+    });
+    
+    return this.http.post(`http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=70002900&sCepDestino=04547000&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3`, {params:params})
+    .pipe(
+      take(1)
+    )
+
+  }
+
+  testeViaCep(){
+    return this.http.get("//viacep.com.br/ws/01001000/json/")
+    .pipe(
+      take(1)
+      )
+  }
+  
 }
