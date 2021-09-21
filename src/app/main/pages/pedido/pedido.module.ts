@@ -19,7 +19,7 @@ const routes: Routes = [
     data: {animation:'pedido-lista'}
   },
   {
-    path:'detalhe/:id',
+    path:'detalhe/:compraId',
     component: PedidoDetalheComponent,
     data: {animation:'pedido-detalhe'}
   },

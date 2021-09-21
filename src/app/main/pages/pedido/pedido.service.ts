@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { CompraDetalhadaModel } from './models/compra-detalhada.model';
 import { CompraItemModel } from './models/compra-item.model';
+import { ItemProdutoCompraModel } from './models/item-produto-compra.model';
 
 const API_URL = environment.apiUrl
 
@@ -19,5 +21,17 @@ export class PedidoService {
     )
   }
 
+  buscarItens(compraId: number){
+    return this.http.get<ItemProdutoCompraModel[]>(`${API_URL}/listaprodutocompra/${compraId}`)
+    .pipe(
+      take(1)
+    )
+  }
 
+  obter(compraId: number){
+    return this.http.get<CompraDetalhadaModel>(`${API_URL}/compra/${compraId}/detalhe`)
+    .pipe(
+      take(1)
+    )
+  }
 }

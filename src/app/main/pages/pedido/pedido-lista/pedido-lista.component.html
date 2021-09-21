@@ -22,7 +22,7 @@
                 <td>{{pedido.dataCompra | date:"dd-MM-YYYY"}}</td>
                 <td>{{pedido.valorFinal | currency}}</td>
                 <td>{{pedido.statusCompra}}</td>
-                <a class="btn btn-primary" [routerLink]="['/pedido/detalhe/', pedido.compraId]">Vizualizar Compra</a>
+                <a class="btn btn-primary" routerLink="/pedido/detalhe/{{pedido.compraId}}">Vizualizar Compra</a>
               </tr>
             </tbody>
           </table>

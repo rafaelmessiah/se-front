@@ -1,5 +1,43 @@
 <div class="content-wrapper">
   <app-content-header [contentHeader]="contentHeader"></app-content-header>
 
-  <app-itens-comprados [itensComprados]=""></app-itens-comprados>
+  <div class="row" id="basic-table">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header"><h4 class="card-title">Produtos Comprados</h4></div>
+        <div class="card-body">
+          
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th>Preco Unitario</th>
+                <th>Valor dos Itens</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of itensComprados">
+                <td>{{item.nome}}</td>
+                <td>{{item.qtde}}</td>
+                <td>{{item.precoUnitario | currency}}</td>
+                <td>{{item.qtde * item.precoUnitario | currency}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-header">
+          <h4 class="card-title">Resumo</h4>
+        </div>
+        <div class="card-body" *ngIf="compraDetalhada != null">
+          <h5><strong class="text-primary">Valor Total:</strong> {{compraDetalhada.valorTotal | currency}}</h5>
+          <h5><strong class="text-primary">Data da Compra:</strong> {{compraDetalhada.dataCompra | date:'dd-MM-YYY'}}</h5>
+          <h5><strong class="text-primary">Forma de Pagamento:</strong> {{compraDetalhada.formaPagamento}} </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Table Basic -->
 </div>
