@@ -1,12 +1,8 @@
 
 <div class="modal-header">
-  <h4 class="modal-title" id="myModalLabel1">Deseja Relamente Realizar Essa Compra</h4>
-  <button type="button" class="close" aria-label="Close" (click)="this.modal.close()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+  <h4 class="modal-title" id="myModalLabel1">Confirmar Realização da Compra</h4>
 </div>
-<div class="modal-body" tabindex="0" ngbAutofocus>
-  
+<div class="modal-body" tabindex="0" ngbAutofocus *ngIf="!confirmada">
   <button class="btn btn-danger btn-block btn-next place-order"
   rippleEffect type="button" (click)="this.modal.close()">
   <i data-feather="x"></i>
@@ -18,6 +14,15 @@
     Confirmar
   </button>
 </div>
-<div class="modal-footer">
-  
+<div class="modal-body" *ngIf="confirmada">
+    <ngb-alert [dismissible]="false" [type]="'success'">
+      <div class="alert-body">
+        <strong> A compra foi realizada com sucesso!</strong><br>
+        Você sera redirecionado para a página inicial
+      </div>
+    </ngb-alert>
+    <button class="btn btn-success btn-block btn-next place-order" (click)="redirecionar()">
+      Confirmar
+    </button>
 </div>
+

@@ -4,6 +4,7 @@ import { CompraService } from '../../compra.service';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+
 @UntilDestroy()
 @Component({
   selector: 'app-confirmar-compra',
@@ -15,6 +16,7 @@ export class ConfirmarCompraComponent implements OnInit {
 
   @Input() compraModel: IniciarModel
   @Input() modal: NgbActiveModal
+  confirmada : boolean
 
   constructor(private compraService: CompraService, 
               private router: Router) { }
@@ -29,11 +31,15 @@ export class ConfirmarCompraComponent implements OnInit {
       untilDestroyed(this)
     )
     .subscribe(() =>{
-      this.modal.close(),
-      this.router.navigate(['/produto'])
+      this.confirmada = true
     },err => {
       console.log(err)
     })
+  }
+
+  redirecionar(){
+    this.modal.close(),
+    this.router.navigate(['/produto'])
   }
 
 }

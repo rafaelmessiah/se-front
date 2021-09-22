@@ -105,4 +105,20 @@
     <app-confirmar-compra [compraModel]="this.iniciarCompra" [modal]="this.modalRef"></app-confirmar-compra>
   </ng-template>
 
+  <ng-template #msgSucessoModal let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel160">Success Modal</h5>
+      </div>
+      <div class="modal-body" tabindex="0" ngbAutofocus>
+        Tart lemon drops macaroon oat cake chocolate toffee chocolate bar icing. Pudding jelly beans
+        carrot cake pastry gummies cheesecake lollipop. I love cookie lollipop cake I love sweet gummi
+        bears cupcake dessert.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('Accept click')" rippleEffect>
+          Accept
+        </button>
+      </div>
+  </ng-template>
+
 </div>

@@ -167,7 +167,11 @@ export class CompraFinalizarComponent implements OnInit {
   }
 
   modalOpen(modalBasic) {
-    this.modalRef = this.modalService.open(modalBasic ,{centered:true});
+    this.modalRef = this.modalService.open(modalBasic ,
+      {
+        centered:true,
+        backdrop:false
+      });
   }
 
 }
