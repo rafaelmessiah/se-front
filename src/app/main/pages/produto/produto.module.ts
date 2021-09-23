@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { ProdutoListaComponent } from './produto-lista/produto-lista.component';
 import { CoreSidebarModule } from '@core/components';
-import { ProdutoItemComponent } from './produto-lista/produto-item/produto-item.component';
 import { CoreCommonModule } from '@core/common.module';
 import { ProdutoRankingComponent } from './produto-ranking/produto-ranking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,18 +32,6 @@ const routes: Routes = [
         path:'lista',
         component:ProdutoListaComponent,
         data:{animation: 'produtos-lista'},
-        children:[
-          {
-            path:'',
-            component:ProdutoItemComponent,
-            data:{animation:'produto-lista-categoriavazia'}
-          },
-          {
-            path:':categoriaId',
-            component:ProdutoItemComponent,
-            data:{animation:'produto-lista-categoria'}
-          }
-        ]
       },
       {
         path:'detalhe/:produtoId',
@@ -69,7 +56,7 @@ const routes: Routes = [
     NgxNumberSpinnerModule,
     SweetAlert2Module.forRoot()
   ],
-  declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoItemComponent,ProdutoRankingComponent,ProdutoDetalheComponent],
+  declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoRankingComponent,ProdutoDetalheComponent],
   providers:[ProdutoService, CarrinhoService]
 })
 export class ProdutoModule { }

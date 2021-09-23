@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { CategoriaModel } from './models/categoria.model';
 import { ProdutoDetalhadoModel } from './models/produto-detalhe.model';
 import { ProdutoSimplesModel } from './models/produto-simples.model';
@@ -12,12 +12,14 @@ const API_URL = environment.apiUrl
 @Injectable()
 export class ProdutoService {
    
+ 
+
   constructor(private http: HttpClient ) { }
   
   public buscarProdutos(categoriaId: number){
     return this.http.get<ProdutoSimplesModel[]>(`${API_URL}/produto/${categoriaId}`)
     .pipe(
-      take(1)
+      take(1),
     );
   }
 

@@ -1,3 +1,5 @@
+
+<!-- Sidebar das Categorias -->
 <div class="sidebar-detached sidebar-left">
   <div class="sidebar">
     <core-sidebar
@@ -14,10 +16,17 @@
           <div id="product-categories">
               <h6 class="filter-title mt-0">Categorias</h6>
               <ul class="list-unstyled categories-list">
+                <li>
+                  <div class="custom-control custom-radio">
+                  <input type="radio" id="0" name="category-filter" class="custom-control-input" checked 
+                  (change)="onSelect(0)"/>
+                  <label class="custom-control-label" for="0">Todos</label>
+                  </div>
+                </li>
                 <li *ngFor="let categoria of categorias">
                     <div class="custom-control custom-radio">
-                    <input type="radio" id="{{categoria.categoriaEnum}}" name="category-filter" class="custom-control-input" 
-                    (click)="onSelect(categoria.categoriaEnum)"/>
+                    <input type="radio" id="{{categoria.categoriaEnum}}" name="category-filter" class="custom-control-input"
+                    (change)="onSelect(categoria.categoriaEnum)"/>
                     <label class="custom-control-label" for="{{categoria.categoriaEnum}}">{{categoria.descricao}}</label>
                     </div>
                 </li>
@@ -31,7 +40,33 @@
   </div>
 </div>
 
-<router-outlet></router-outlet>
+<!-- Lista de Produtos -->
+<div class="content-detached content-right">
+  <div class="content-body">
+    <section class="grid-view">
+      <div class="card ecommerce-card bg-transparent border-primary" *ngFor="let produto of produtos">
+          <div class="item-img text-center">
+            <a routerLink="/produto/detalhe/{{produto.produtoId}}">
+              <img class="img-fluid card-img-top" src="../../../../../assets/images/produtos/{{produto.imagem}}" alt="img-placeholder" />
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="item-wrapper">
+              <h4 class="item-price">{{produto.preco | currency}}</h4>
+              <div class="rating">
+                <ngb-rating [rate]="produto.ranking" [max]="5" readonly="true" class="outline-none">
+                </ngb-rating>
+              </div>
+            </div>
+            <h4 class="item-name">{{produto.nome}}</h4>
+            
+          </div>
+          
+        </div>
+    </section>
+</div>
+
+  
 
 
 
