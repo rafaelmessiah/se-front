@@ -64,7 +64,7 @@ export class PedidoDetalheComponent implements OnInit {
     .subscribe((params : Params) => 
     this.compraId = +params['compraId'])
     
-    this.pedidoService.obter(this.compraId)
+    this.pedidoService.obter(this.compraId, this.clienteService.clienteId)
     .pipe(
       untilDestroyed(this),
       tap(compra => this.itensComprados = compra.itensComprados)

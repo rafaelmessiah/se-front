@@ -21,9 +21,7 @@ export class ProdutoListaComponent implements OnInit {
   private _categoriaSelecionada = new BehaviorSubject<number>(1)
   public categoriaSelecionada$ = this._categoriaSelecionada.asObservable()
   
-  constructor(private produtoService: ProdutoService, 
-              private router: Router, 
-              private route: ActivatedRoute) { }
+  constructor(private produtoService: ProdutoService) { }
 
   ngOnInit() {
 

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ClienteService } from '../cliente/cliente.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { until } from 'selenium-webdriver';
+import { LoginService } from '../login/login.service';
 
 @UntilDestroy()
 @Component({
@@ -21,7 +22,9 @@ export class CarrinhoComponent implements OnInit {
   public contentHeader: object
   public valorTotal: number
 
-  constructor(public carrinhoService: CarrinhoService, private clienteService: ClienteService) { }
+  constructor(public carrinhoService: CarrinhoService,
+              private clienteService: ClienteService,
+              private loginService: LoginService) { }
 
   ngOnInit() {
     this.contentHeader = {
@@ -61,6 +64,10 @@ export class CarrinhoComponent implements OnInit {
       tap(itens => this.valorTotal = this.calcularValorTotal(itens))
     )
     .subscribe(itens => this.itens = itens)
+
+    this.loginService.clienteLogado$.subscribe(
+      cliente => console.log(cliente.nome)
+    )
 
     console.log(this.valorTotal)
   }

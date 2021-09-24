@@ -8,6 +8,7 @@ import { ProdutoService } from '../produto.service';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from '../../cliente/cliente.service';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import { LoginService } from '../../login/login.service';
 
 @UntilDestroy()
 @Component({
@@ -27,7 +28,8 @@ export class ProdutoDetalheComponent implements OnInit {
   constructor(private produtoService: ProdutoService, 
               private carrinhoService: CarrinhoService,
               private clienteService: ClienteService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private loginService: LoginService) { }
 
   ngOnInit() {
 
@@ -39,6 +41,13 @@ export class ProdutoDetalheComponent implements OnInit {
     .subscribe(produto=>
       this.produto = produto
     )
+
+    this.loginService.login({email:"joao@email.com",senha:"lordesnow123"})
+
+    this.loginService.clienteLogado$.subscribe(cliente => {
+      console.log(cliente.nome),
+      console.log(cliente.clienteId)
+    })
   }
 
   inserir(){

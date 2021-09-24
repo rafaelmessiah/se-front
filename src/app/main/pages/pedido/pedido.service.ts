@@ -28,8 +28,8 @@ export class PedidoService {
     )
   }
 
-  obter(compraId: number){
-    return this.http.get<CompraDetalhadaModel>(`${API_URL}/compra/${compraId}/detalhe`)
+  obter(compraId: number, clienteId: number){
+    return this.http.get<CompraDetalhadaModel>(`${API_URL}/compra/${compraId}/detalhe/${clienteId}`)
     .pipe(
       take(1)
     )

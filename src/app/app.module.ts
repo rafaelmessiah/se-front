@@ -46,6 +46,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/pages/pedido/pedido.module').then(m => m.PedidoModule)
   },
   {
+    path: 'login',
+    loadChildren: () => import('./main/pages/login/login.module').then(m => m.LoginModule)
+  },
+  {
     path: 'authentication',
     loadChildren: () => import('./main/pages/authentication/authentication.module').then(m => m.AuthenticationModule)
   },
