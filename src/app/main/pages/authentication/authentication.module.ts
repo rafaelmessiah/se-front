@@ -12,7 +12,7 @@ import { AuthLoginV2Component } from 'app/main/pages/authentication/auth-login-v
 // routing
 const routes: Routes = [
   {
-    path: 'login',
+    path: 'auth-v2',
     component: AuthLoginV2Component,
     data: { animation: 'auth' }
   }

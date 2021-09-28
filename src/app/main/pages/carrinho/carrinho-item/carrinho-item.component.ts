@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, ViewEncapsulation, EventEmitter } fro
 import { ItemCarrinhoModel } from '../models/item-carrinho.model';
 import { CarrinhoService } from '../carrinho.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { until } from 'selenium-webdriver';
+
 
 @UntilDestroy()
 @Component({

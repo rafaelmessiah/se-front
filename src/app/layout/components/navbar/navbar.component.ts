@@ -14,7 +14,10 @@ import { CoreMediaService } from '@core/services/media.service';
 import { User } from 'app/auth/models';
 import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../main/pages/login/login.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -34,6 +37,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public languageOptions: any;
   public navigation: any;
   public selectedLanguage: any;
+
+  public clienteNome: string
 
   @HostBinding('class.fixed-top')
   public isFixed = false;
@@ -79,7 +84,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _coreMediaService: CoreMediaService,
     private _coreSidebarService: CoreSidebarService,
     private _mediaObserver: MediaObserver,
-    public _translateService: TranslateService
+    public _translateService: TranslateService,
+    private loginService: LoginService,
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
@@ -161,8 +167,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * Logout method
    */
   logout() {
-    this._authenticationService.logout();
-    this._router.navigate(['/pages/authentication/login-v2']);
+    this.loginService.lougout();
   }
 
   // Lifecycle Hooks
@@ -172,6 +177,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
+    //Puxa o nome do Usuario pelo LoginService
+    this.loginService.clienteLogado$
+    .pipe(
+      untilDestroyed(this)
+    )
+    .subscribe(cliente => this.clienteNome = cliente.nome)
+
     // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 

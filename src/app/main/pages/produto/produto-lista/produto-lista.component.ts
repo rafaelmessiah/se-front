@@ -18,8 +18,6 @@ export class ProdutoListaComponent implements OnInit {
 
   public categorias: CategoriaModel[] =[];
   public produtos: ProdutoSimplesModel[]= [];
-  private _categoriaSelecionada = new BehaviorSubject<number>(1)
-  public categoriaSelecionada$ = this._categoriaSelecionada.asObservable()
   
   constructor(private produtoService: ProdutoService) { }
 
@@ -36,7 +34,6 @@ export class ProdutoListaComponent implements OnInit {
 
     this.produtoService.buscarTodos()
     .subscribe(produtos => this.produtos = produtos)
-    
   }
    
   onSelect(categoriaId: number){
@@ -49,6 +46,5 @@ export class ProdutoListaComponent implements OnInit {
       this.produtoService.buscarProdutos(categoriaId)
       .subscribe(produtos => this.produtos = produtos)
     }
-    
   }
 }

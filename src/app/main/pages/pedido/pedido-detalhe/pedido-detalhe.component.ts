@@ -7,6 +7,7 @@ import { CompraDetalhadaModel } from '../models/compra-detalhada.model';
 import { CompraItemModel } from '../models/compra-item.model';
 import { ItemProdutoCompraModel } from '../models/item-produto-compra.model';
 import { PedidoService } from '../pedido.service';
+import { LoginService } from '../../login/login.service';
 
 @UntilDestroy()
 @Component({
@@ -17,13 +18,13 @@ import { PedidoService } from '../pedido.service';
 export class PedidoDetalheComponent implements OnInit {
 
   contentHeader: object
-  itensComprados: ItemProdutoCompraModel[] = []
+  clienteId: number
   compraId: number
   compraDetalhada: CompraDetalhadaModel
-  
+  itensComprados: ItemProdutoCompraModel[] = []
   
   constructor(private pedidoService: PedidoService,
-              private clienteService: ClienteService,
+              private loginService: LoginService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -57,6 +58,7 @@ export class PedidoDetalheComponent implements OnInit {
       }
     }
 
+    //Pega o compraId pelo parametro
     this.route.params
     .pipe(
       untilDestroyed(this), 
@@ -64,14 +66,18 @@ export class PedidoDetalheComponent implements OnInit {
     .subscribe((params : Params) => 
     this.compraId = +params['compraId'])
     
-    this.pedidoService.obter(this.compraId, this.clienteService.clienteId)
+    //Pega o clienteId pelo login service
+    this.loginService.clienteLogado$
+    .pipe(
+      untilDestroyed(this)
+    )
+    .subscribe(cliente => this.clienteId = cliente.clienteId)
+    
+    this.pedidoService.obter(this.compraId, this.clienteId)
     .pipe(
       untilDestroyed(this),
       tap(compra => this.itensComprados = compra.itensComprados)
     )
     .subscribe(compra => this.compraDetalhada = compra)
-    
   }
-
- 
 }

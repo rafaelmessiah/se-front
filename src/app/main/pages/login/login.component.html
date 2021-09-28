@@ -1,3 +1,52 @@
-<p>
-  login works!
-</p>
+<div class="container">
+  <div class="content-wrapper">
+    <div class="content-body">
+      <div class="card">
+        <img class="card-img-top" src="../../../../assets/images/logo/logo.svg" alt="Card image cap" />
+        <div class="card-header">
+          <h2 class="">SingleExperience</h2>
+        </div>
+      
+        <div class="card-body">
+          <h4>Seja Bem-Vindo.</h4><br>
+          <h5>Para continuar é necessario fazer Login ou se Cadastrar</h5>
+          <hr/>
+          <form class="auth-login-form mt-2" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+            <label>Email: </label>
+            <div class="form-group">
+              <input type="text" class="form-control" formControlName='email' 
+              />
+              <ngb-alert type="danger" *ngIf="!formLogin.get('email').valid && formLogin.get('email').touched" [dismissible]="false">
+                <div class="alert-body">
+                  <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+                  <span>Digite um email Válido</span>
+                </div>
+              </ngb-alert>
+            </div>
+            <label>Senha: </label>
+            <div class="form-group">
+              <input type="Password" class="form-control" formControlName='senha' 
+              />
+              <ngb-alert type="danger" *ngIf="!formLogin.get('senha').valid && formLogin.get('senha').touched" [dismissible]="false">
+                <div class="alert-body">
+                  <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+                  <span>É necessario Digitar a senha para logar</span>
+                </div>
+              </ngb-alert>
+            </div>
+            <button class="btn btn-primary col-4"  rippleEffect>
+              Login
+            </button>
+            <a type="button" class="btn btn-outline-primary col-4" routerLink="/login/cadastrar" rippleEffect>
+              Cadastrar
+            </a>
+          </form>
+        </div>
+       </div>
+    </div>
+    
+  </div>
+ 
+ 
+    
+</div>

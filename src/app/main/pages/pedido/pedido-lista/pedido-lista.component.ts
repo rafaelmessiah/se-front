@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from '../../cliente/cliente.service';
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import { LoginService } from '../../login/login.service';
 import { CompraItemModel } from '../models/compra-item.model';
 import { PedidoService } from '../pedido.service';
 
+@UntilDestroy()
 @Component({
   selector: 'app-pedido-lista',
   templateUrl: './pedido-lista.component.html',
@@ -11,10 +13,11 @@ import { PedidoService } from '../pedido.service';
 export class PedidoListaComponent implements OnInit {
 
   contentHeader: object
+  clienteId: number
   pedidos: CompraItemModel[] = []
 
   constructor(private pedidoService: PedidoService,
-              private clienteService: ClienteService) { }
+              private loginService: LoginService) { }
 
   ngOnInit() {
     this.contentHeader = {
@@ -47,11 +50,17 @@ export class PedidoListaComponent implements OnInit {
       }
     }
 
-    this.pedidoService.buscarPedidos(this.clienteService.clienteId)
-    .subscribe(
-      pedidos => this.pedidos = pedidos
+    this.loginService.clienteLogado$
+    .pipe(
+      untilDestroyed(this),
     )
+    .subscribe(cliente => this.clienteId = cliente.clienteId)
 
+    this.pedidoService.buscarPedidos(this.clienteId)
+    .pipe(
+      untilDestroyed(this)
+    )
+    .subscribe(pedidos => this.pedidos = pedidos)
   }
 
 }

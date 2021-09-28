@@ -10,12 +10,14 @@ import { CoreTouchspinModule } from '../../../../@core/components/core-touchspin
 import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
 import { CarrinhoResumoComponent } from './carrinho-resumo/carrinho-resumo.component';
 import { CarrinhoService } from './carrinho.service';
+import { AuthGuard } from 'app/autenticacao/auth.guard';
 
 
 const routes: Routes =[
   {
     path:'',
     component: CarrinhoComponent,
+    canActivate: [AuthGuard],
     data:{animation:'carrinho'}
   }
 ]

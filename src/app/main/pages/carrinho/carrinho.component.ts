@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ItemCarrinhoModel } from './models/item-carrinho.model';
 import { CarrinhoService } from './carrinho.service';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { ClienteService } from '../cliente/cliente.service';
+import { tap, switchMap } from 'rxjs/operators';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { until } from 'selenium-webdriver';
 import { LoginService } from '../login/login.service';
 
 @UntilDestroy()
@@ -23,7 +20,6 @@ export class CarrinhoComponent implements OnInit {
   public valorTotal: number
 
   constructor(public carrinhoService: CarrinhoService,
-              private clienteService: ClienteService,
               private loginService: LoginService) { }
 
   ngOnInit() {
@@ -52,11 +48,12 @@ export class CarrinhoComponent implements OnInit {
       }
     }
 
-    this.carrinhoService.buscarItens(this.clienteService.clienteId)
+    this.loginService.clienteLogado$
     .pipe(
-      untilDestroyed(this)
-    )
-    .subscribe()
+      untilDestroyed(this),
+      switchMap(clienteLogado => this.carrinhoService.buscarItens(clienteLogado.clienteId)),
+      tap(itens => this.valorTotal = this.calcularValorTotal(itens))
+    ).subscribe()
 
     this.carrinhoService.itensCarrinho$
     .pipe(
@@ -64,12 +61,6 @@ export class CarrinhoComponent implements OnInit {
       tap(itens => this.valorTotal = this.calcularValorTotal(itens))
     )
     .subscribe(itens => this.itens = itens)
-
-    this.loginService.clienteLogado$.subscribe(
-      cliente => console.log(cliente.nome)
-    )
-
-    console.log(this.valorTotal)
   }
 
   calcularValorTotal(itens: ItemCarrinhoModel[]){
@@ -81,14 +72,8 @@ export class CarrinhoComponent implements OnInit {
    return valor
   }
    
-  testeCorreio(){
-    this.carrinhoService.testeCorreio().subscribe(
-      res => console.log(res)
-    )
+  calcularFrete(cep: string){
+    this.carrinhoService.obterFrete(cep)
+    .pipe
   }
-
-  testeViaCep(){
-    this.carrinhoService.testeViaCep()
-    .subscribe(res => console.log(res))
-  }
-}
+ }

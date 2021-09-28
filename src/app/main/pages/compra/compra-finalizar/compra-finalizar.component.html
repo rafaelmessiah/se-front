@@ -1,9 +1,7 @@
 <div class="content-wrapper">
   <app-content-header [contentHeader]="contentHeader"></app-content-header>
   
-  <!--Resumo dos Itens que estão no carrinho-->
-  <app-carrinho-resumo [itens]="this.itens" [valorTotal]="this.valorTotal"></app-carrinho-resumo>
-
+  
   <!--Formulario de Escolher a Forma de Pagamento-->
   <form [formGroup]="iniciarCompraForm" (ngSubmit)="onSubmit(confirmarCompraModal)">
     <div class="row">
@@ -18,20 +16,20 @@
         </div>
       </div>
     </div>
-
+    
     <div class="row">
       <div class="col-7" *ngIf="isCartao == true">
         <div class="card">
           <div class="card-header"><h4 class="card-title">Escolha o cartao</h4></div>
           <div class="card-body">
-          <div class="card shadow-none bg-transparent border-primary col-6" *ngFor="let cartao of cartoes">
-            <div class="card-body">
-              <p class="card-text">**** **** **** **** {{cartao.numero | mascaraCartao}}</p>
-              <hr/>
-              <p class="card-text">Val: {{cartao.dataVencimento | date:'MM-YYYY'}}</p>
-              <input type="radio" value="{{cartao.cartaoCreditoId}}" formControlName="cartaoCreditoId"/>
+            <div class="card shadow-none bg-transparent border-primary col-6" *ngFor="let cartao of cartoes">
+              <div class="card-body">
+                <p class="card-text">**** **** **** **** {{cartao.numero | mascaraCartao}}</p>
+                <hr/>
+                <p class="card-text">Val: {{cartao.dataVencimento | date:'MM-YYYY'}}</p>
+                <input type="radio" value="{{cartao.cartaoCreditoId}}" formControlName="cartaoCreditoId"/>
+              </div>
             </div>
-          </div>
           </div>
           <div class="card-body">
             <button class="btn btn-primary btn-block btn-next place-order col-4"
@@ -39,86 +37,73 @@
             >
             <i data-feather="plus-circle"></i>
             Adicionar um novo Cartão
-            </button>
-          </div>
+          </button>
         </div>
       </div>
     </div>
-
-    <ng-template #formCadastrarCartao let-modal>
-      <app-cadastrar-cartao [modal]="this.modalRef"></app-cadastrar-cartao>
-    </ng-template>
-
-    <div class="row">
-      <div class="col-7">
-        <div class="card">
-          <div class="card-header"><h4 class="card-title">Escolha o Endereço de Entrega</h4></div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Rua</th>
-                    <th>Numero</th>
-                    <th>Complemento</th>
-                    <th>Cep</th>
-                    <th>Selecionar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let endereco of enderecos">
-                    <td>{{endereco.rua}}</td>
-                    <td>{{endereco.numero}}</td>
-                    <td>{{endereco.complemento}}</td>
-                    <td>{{endereco.cep}}</td>
-                    <td>
-                      <div class="custom-control custom-radio">
-                        <input type="radio" value="{{endereco.enderecoId}}" formControlName="enderecoId" />
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-          </div>
-          <div class="card-body">
-            <button class="btn btn-primary btn-block btn-next place-order col-4"
-            rippleEffect type="button" (click)="modalOpen(formCadastrarEndereco)" ><i data-feather="plus-circle"></i>
-            Adicionar um novo enderço
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <ng-template #formCadastrarEndereco let-modal>
-      <app-cadastrar-endereco [modal]="this.modalRef"></app-cadastrar-endereco>
-    </ng-template>
-
-    <button class="btn btn-success btn-block btn-next place-order col-7"
-    rippleEffect type="submit">
-    Finalizar Compra</button>
-  </form>
- 
-  <ng-template #confirmarCompraModal let-modal>
-    <app-confirmar-compra [compraModel]="this.iniciarCompra" [modal]="this.modalRef"></app-confirmar-compra>
+  </div>
+  
+  <ng-template #formCadastrarCartao let-modal>
+    <app-cadastrar-cartao [modal]="this.modalRef"></app-cadastrar-cartao>
   </ng-template>
-
-  <ng-template #msgSucessoModal let-modal>
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel160">Success Modal</h5>
-      </div>
-      <div class="modal-body" tabindex="0" ngbAutofocus>
-        Tart lemon drops macaroon oat cake chocolate toffee chocolate bar icing. Pudding jelly beans
-        carrot cake pastry gummies cheesecake lollipop. I love cookie lollipop cake I love sweet gummi
-        bears cupcake dessert.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="modal.close('Accept click')" rippleEffect>
-          Accept
+  
+  <div class="row">
+    <div class="col-7">
+      <div class="card">
+        <div class="card-header"><h4 class="card-title">Escolha o Endereço de Entrega</h4></div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Rua</th>
+                  <th>Numero</th>
+                  <th>Complemento</th>
+                  <th>Cep</th>
+                  <th>Selecionar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let endereco of enderecos">
+                  <td>{{endereco.rua}}</td>
+                  <td>{{endereco.numero}}</td>
+                  <td>{{endereco.complemento}}</td>
+                  <td>{{endereco.cep}}</td>
+                  <td>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" value="{{endereco.enderecoId}}" formControlName="enderecoId" />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+        <div class="card-body">
+          <button class="btn btn-primary btn-block btn-next place-order col-4"
+          rippleEffect type="button" (click)="modalOpen(formCadastrarEndereco)" ><i data-feather="plus-circle"></i>
+          Adicionar um novo enderço
         </button>
       </div>
-  </ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template #formCadastrarEndereco let-modal>
+  <app-cadastrar-endereco [modal]="this.modalRef"></app-cadastrar-endereco>
+</ng-template>
+
+<!--Resumo dos Itens que estão no carrinho-->
+<app-carrinho-resumo [itens]="this.itens" [valorTotal]="this.valorTotal"></app-carrinho-resumo>
+
+<button class="btn btn-success btn-block btn-next place-order col-7"
+rippleEffect type="submit">
+Finalizar Compra</button>
+</form>
+
+<ng-template #confirmarCompraModal let-modal>
+  <app-confirmar-compra [compraModel]="this.iniciarCompra" [modal]="this.modalRef"></app-confirmar-compra>
+</ng-template>
 
 </div>

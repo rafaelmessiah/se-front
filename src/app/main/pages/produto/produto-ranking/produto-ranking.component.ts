@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ProdutoSimplesModel } from '../models/produto-simples.model';
 import { ProdutoService } from '../produto.service';
+import { LoginService } from '../../login/login.service';
 
 @UntilDestroy()
 @Component({
@@ -15,7 +16,8 @@ export class ProdutoRankingComponent implements OnInit {
   public produtos: ProdutoSimplesModel[] = []
   contentHeader: object
 
-  constructor(private produtoService: ProdutoService) { }
+  constructor(private produtoService: ProdutoService,
+              private loginService: LoginService) { }
 
   ngOnInit() {
 
@@ -42,5 +44,4 @@ export class ProdutoRankingComponent implements OnInit {
       this.produtos = categorias;
     })
   }
-
 }

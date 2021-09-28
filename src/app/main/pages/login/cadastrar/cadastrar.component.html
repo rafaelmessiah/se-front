@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="content-wrapper">
+    <div class="content-body">
+      <div class="card">
+        <img class="card-img-top" src="../../../../assets/images/logo/logo.svg" alt="Card image cap" />
+        <div class="card-header">
+          <h2 class="">SingleExperience</h2>
+        </div>
+        <div class="card-body">
+          <h4>Cadastro de Novo Cliente.</h4><br>
+          <h5>Preecnha os dados a seguir para se cadastrar</h5>
+          <hr/>
+          <form class="auth-login-form mt-2" [formGroup]="formCadastro" (ngSubmit)="onSubmit()">
+            <label>CPF: </label>
+            <div class="form-group">
+              <input type="text" class="form-control" formControlName='cpf' 
+              />
+              <ngb-alert type="danger" *ngIf="!formCadastro.get('cpf').valid && formCadastro.get('cpf').touched" [dismissible]="false">
+                <div class="alert-body">
+                  <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+                  <span>O CPF é <strong>Obrigatório</strong> e deve conter 11 dígitos</span>
+                </div>
+              </ngb-alert>
+            </div>
+            <label>Nome: </label>
+            <div class="form-group">
+              <input type="text"  class="form-control" formControlName='nome' 
+              />
+              <ngb-alert type="danger" *ngIf="!formCadastro.get('nome').valid && formCadastro.get('nome').touched" [dismissible]="false">
+                <div class="alert-body">
+                  <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+                  <span>O nome é <strong>Obrigatório</strong> e não pode ultrapassar 100 Dígitos</span>
+                </div>
+              </ngb-alert>
+            </div>
+            <label>Email: </label>
+            <div class="form-group">
+              <input type="text" class="form-control" formControlName='email' 
+              />
+              <ngb-alert type="danger" *ngIf="!formCadastro.get('email').valid && formCadastro.get('email').touched" [dismissible]="false">
+                <div class="alert-body">
+                  <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+                  <span>Por favor digite um email válido</span>
+                </div>
+              </ngb-alert>
+            </div>
+            <label>Senha: </label>
+            <div class="form-group">
+              <input type="password" class="form-control" formControlName='senha' 
+              />
+              <ngb-alert type="danger" *ngIf="!formCadastro.get('senha').valid && formCadastro.get('senha').touched" [dismissible]="false">
+                <div class="alert-body">
+                  <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+                  <span>A senha é <strong>Obrigatória</strong></span>
+                </div>
+              </ngb-alert>
+            </div>
+            <label>Data de Nascimento: </label>
+            <div class="form-group">
+              <input type="date" class="form-control" formControlName='dataNascimento' 
+              />
+              <ngb-alert type="danger" *ngIf="!formCadastro.get('dataNascimento').valid && formCadastro.get('dataNascimento').touched" [dismissible]="false">
+                <div class="alert-body">
+                  <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+                  <span>A data de nasicmento é <strong>Obrigatória</strong> </span>
+                </div>
+              </ngb-alert>
+            </div>
+            <label>Telefone: </label>
+            <div class="form-group">
+              <input type="text" class="form-control" formControlName='telefone' 
+              />
+              <ngb-alert type="danger" *ngIf="!formCadastro.get('telefone').valid && formCadastro.get('telefone').touched" [dismissible]="false">
+                <div class="alert-body">
+                  <span [data-feather]="'info'" [class]="'mr-50 align-middle'"></span>
+                  <span>O telefone é <strong>Obrigatório</strong></span>
+                </div>
+              </ngb-alert>
+            </div>
+            <button class="btn btn-primary col-4"  rippleEffect>
+              Cadastar
+            </button>
+            <a type="button" class="btn btn-outline-primary col-4" routerLink="/login" rippleEffect>
+              Login
+            </a>
+          </form>
+        </div>
+       </div>
+    </div>
+    
+  </div>
+ 
+ 
+    
+</div>

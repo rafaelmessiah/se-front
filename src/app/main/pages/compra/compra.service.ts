@@ -24,6 +24,8 @@ export class CompraService {
   private _enderecos = new BehaviorSubject<EnderecoModel[]>([])
   public enderecos$ = this._enderecos.asObservable()
 
+  private _valorFrete = new BehaviorSubject<number>(0.00)
+  public valorFrete$ = this._valorFrete.asObservable()
 
   //Forma de Pagamento---------------------------------------------------------------------------------
   buscarFormaPagamento(){
@@ -97,4 +99,10 @@ export class CompraService {
     )
   }
   
+  calcularValorFrete(enderecoId: number){
+    return this.http.get<number>(`${API_URL}/correios/${enderecoId}`)
+    .pipe(
+      take(1)
+    )
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 import { CarrinhoService } from '../../carrinho/carrinho.service';
 import { ItemCarrinhoModel } from '../../carrinho/models/item-carrinho.model';
 
@@ -12,6 +12,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteService } from '../../cliente/cliente.service';
 import { EnderecoModel } from '../models/endereco.model';
+import { LoginService } from '../../login/login.service';
 
 @UntilDestroy()
 @Component({
@@ -24,8 +25,10 @@ import { EnderecoModel } from '../models/endereco.model';
 export class CompraFinalizarComponent implements OnInit {
 
   contentHeader: object
+  clienteId: number
   itens: ItemCarrinhoModel[] =[]
   valorTotal: number
+  valorFrete: number
   formasPagamento: FormaPagamentoModel[]=[]
   enderecos: EnderecoModel[] = []
   cartoes: CartaoDetalheModel[] = []
@@ -36,7 +39,7 @@ export class CompraFinalizarComponent implements OnInit {
 
   constructor(private carrinhoService: CarrinhoService,
               private compraService: CompraService,
-              private clienteService: ClienteService,
+              private loginService: LoginService,
               private formBuilder: FormBuilder,
               public modalService: NgbModal
               ) { }
@@ -72,24 +75,27 @@ export class CompraFinalizarComponent implements OnInit {
       }
     }
 
-    
+    //Pega o clienteId do LoginService
+    this.loginService.clienteLogado$
+    .subscribe(cliente => this.clienteId = cliente.clienteId)
+
     /*
       Inicializa o Formulário
     */
     this.iniciarCompraForm = this.formBuilder.group({
-      clienteId:[this.clienteService.clienteId],
+      clienteId:[this.clienteId],
       enderecoId:[null, Validators.required],
       formaPagamentoEnum:[1,Validators.required],
       cartaoCreditoId:[null]
     });
 
     //Metodos relacionados aos itens do carrinho----------------------------------------------------------
-    this.carrinhoService.buscarItens(this.clienteService.clienteId)
+    this.carrinhoService.buscarItens(this.clienteId)
     .pipe(
       untilDestroyed(this)
     )
     .subscribe();
-    
+
     this.carrinhoService.itensCarrinho$
     .pipe(
       untilDestroyed(this),
@@ -97,7 +103,8 @@ export class CompraFinalizarComponent implements OnInit {
     )
     .subscribe(itens => this.itens = itens);
 
-    this.compraService.buscarCartoes(this.clienteService.clienteId)
+    //Metodos Relacionados ao Cartão de Credito
+    this.compraService.buscarCartoes(this.clienteId)
     .pipe(
       untilDestroyed(this)
     )
@@ -118,7 +125,8 @@ export class CompraFinalizarComponent implements OnInit {
       this.formasPagamento = formas
     );
 
-    this.compraService.buscarEnderecos(this.clienteService.clienteId)
+    //  Metodos Relacionados aos Endereços
+    this.compraService.buscarEnderecos(this.clienteId)
     .pipe(
       untilDestroyed(this)
     )

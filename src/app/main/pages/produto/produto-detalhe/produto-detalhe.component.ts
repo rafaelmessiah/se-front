@@ -7,8 +7,9 @@ import { ProdutoDetalhadoModel } from '../models/produto-detalhe.model';
 import { ProdutoService } from '../produto.service';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from '../../cliente/cliente.service';
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LoginService } from '../../login/login.service';
+import { switchMap } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
@@ -41,28 +42,20 @@ export class ProdutoDetalheComponent implements OnInit {
     .subscribe(produto=>
       this.produto = produto
     )
-
-    this.loginService.login({email:"joao@email.com",senha:"lordesnow123"})
-
-    this.loginService.clienteLogado$.subscribe(cliente => {
-      console.log(cliente.nome),
-      console.log(cliente.clienteId)
-    })
   }
 
   inserir(){
-    this.carrinhoService.inserir({
-      produtoId : this.produto.produtoId, 
-      clienteId : this.clienteService.clienteId,
-      qtde : this.qtde 
-    })
-    .subscribe(
-      () => {
-      this.inseriu = true
-    },
-      () => {
-        this.inserido = true
-      }
+    this.loginService.clienteLogado$
+    .pipe(
+      untilDestroyed(this),
+      switchMap(cliente => this.carrinhoService.inserir({
+        produtoId: this.produto.produtoId,
+        clienteId: cliente.clienteId,
+        qtde: this.qtde
+      }))
+    ).subscribe(
+      res => this.inseriu = true,
+      err => this.inserido = true,
     )
   }
 

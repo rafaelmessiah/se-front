@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { CarrinhoService } from '../carrinho.service';
 import { ItemCarrinhoModel } from '../models/item-carrinho.model';
 
 @Component({
@@ -12,6 +11,7 @@ export class CarrinhoResumoComponent implements OnInit {
 
   @Input() itens: ItemCarrinhoModel[]
   @Input() valorTotal: number
+  @Input() valorFrete: number
 
   constructor() { }
 
