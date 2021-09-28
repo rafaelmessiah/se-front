@@ -11,8 +11,6 @@ const API_URL = environment.apiUrl
 
 @Injectable()
 export class ProdutoService {
-   
- 
 
   constructor(private http: HttpClient ) { }
   
