@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { CategoriaModel } from '../models/categoria.model';
 import { ProdutoSimplesModel } from '../models/produto-simples.model';
 import { ProdutoService } from '../produto.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @UntilDestroy()
 @Component({
@@ -16,12 +17,22 @@ import { ProdutoService } from '../produto.service';
 })
 export class ProdutoListaComponent implements OnInit {
 
-  public categorias: CategoriaModel[] =[];
-  public produtos: ProdutoSimplesModel[]= [];
+  public categorias: CategoriaModel[] = [];
+  public produtos: ProdutoSimplesModel[] = [];
+  formCategoria: FormGroup
   
-  constructor(private produtoService: ProdutoService) { }
+  constructor(private produtoService: ProdutoService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    /**
+     * Inicializa o Formulario
+    */
+    this.formCategoria = this.formBuilder.group({
+      
+    })
+
 
     //Busca as categorias do banco
     this.produtoService.buscarCategorias()
