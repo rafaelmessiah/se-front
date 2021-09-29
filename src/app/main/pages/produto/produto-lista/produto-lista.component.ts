@@ -30,7 +30,7 @@ export class ProdutoListaComponent implements OnInit {
      * Inicializa o Formulario
     */
     this.formCategoria = this.formBuilder.group({
-      
+      categoria:[]
     })
 
 
