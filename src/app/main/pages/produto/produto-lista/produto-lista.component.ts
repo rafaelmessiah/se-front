@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { CategoriaModel } from '../models/categoria.model';
 import { ProdutoSimplesModel } from '../models/produto-simples.model';
 import { ProdutoService } from '../produto.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @UntilDestroy()
 @Component({
@@ -30,9 +30,8 @@ export class ProdutoListaComponent implements OnInit {
      * Inicializa o Formulario
     */
     this.formCategoria = this.formBuilder.group({
-      categoria:[]
+      categoria:[0,[Validators.required]]
     })
-
 
     //Busca as categorias do banco
     this.produtoService.buscarCategorias()
@@ -45,6 +44,8 @@ export class ProdutoListaComponent implements OnInit {
 
     this.produtoService.buscarTodos()
     .subscribe(produtos => this.produtos = produtos)
+
+    console.log(this.formCategoria.get('categoria').value)
   }
    
   onSelect(categoriaId: number){

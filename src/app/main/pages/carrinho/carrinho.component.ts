@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ItemCarrinhoModel } from './models/item-carrinho.model';
 import { CarrinhoService } from './carrinho.service';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap, switchMap, map } from 'rxjs/operators';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LoginService } from '../login/login.service';
 
@@ -52,28 +52,17 @@ export class CarrinhoComponent implements OnInit {
     .pipe(
       untilDestroyed(this),
       switchMap(clienteLogado => this.carrinhoService.buscarItens(clienteLogado.clienteId)),
-      tap(itens => this.valorTotal = this.calcularValorTotal(itens))
     ).subscribe()
 
     this.carrinhoService.itensCarrinho$
     .pipe(
       untilDestroyed(this),
-      tap(itens => this.valorTotal = this.calcularValorTotal(itens))
+      tap(itens => this.itens = itens),
+      map(itens => 
+        itens.reduce((a, b) => a += b.preco * b.qtde, 0.00)
+      )
     )
-    .subscribe(itens => this.itens = itens)
+    .subscribe(valor => this.valorTotal = valor)
   }
 
-  calcularValorTotal(itens: ItemCarrinhoModel[]){
-   let valor = 0;
-   itens.forEach(element => {
-     valor += element.qtde * element.preco
-   });
-
-   return valor
-  }
-   
-  calcularFrete(cep: string){
-    this.carrinhoService.obterFrete(cep)
-    .pipe
-  }
  }

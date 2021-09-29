@@ -43,6 +43,7 @@
     "@ngx-translate/core": "13.0.0",
     "@sweetalert2/ngx-sweetalert2": "8.1.1",
     "@swimlane/ngx-datatable": "19.0.0",
+    "angular": "^1.8.2",
     "angular-in-memory-web-api": "0.11.0",
     "angular-shepherd": "11.0.0",
     "animate.css": "4.1.1",
@@ -84,7 +85,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1102.1",
-    "@angular/cli": "11.2.1",
+    "@angular/cli": "^11.2.1",
     "@angular/compiler-cli": "11.2.1",
     "@angular/language-service": "11.2.1",
     "@angularclass/hmr": "3.0.0",

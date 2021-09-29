@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ItemCarrinhoModel } from './models/item-carrinho.model';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { map, reduce, switchMap, take, tap } from 'rxjs/operators';
 import { SalvarModel } from './models/salvar.model';
 import { BehaviorSubject } from 'rxjs';
 import { EdicaoQtdeModel } from './models/edicao-qtde.model';
@@ -10,7 +10,9 @@ import { FreteSimplesModel } from './models/frete-simples.model';
 
 const API_URL = environment.apiUrl
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CarrinhoService {
 
   private _itensCarrinho = new BehaviorSubject<ItemCarrinhoModel[]>([]);
@@ -24,6 +26,15 @@ export class CarrinhoService {
       take(1),
       tap(itens => this._itensCarrinho.next(itens))
     );
+  }
+
+  calcularValorTotal(){
+    this.itensCarrinho$
+    .pipe(
+      map(itens => 
+        itens.reduce((a, b) => a += b.qtde, 0)
+      )
+    )
   }
   
   remover(carrinhoId: number, clienteId: number){

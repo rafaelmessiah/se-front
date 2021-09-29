@@ -16,18 +16,18 @@
           <div id="product-categories">
               <h6 class="filter-title mt-0">Categorias</h6>
               <ul class="list-unstyled categories-list">
-                <form re>
+                <form [formGroup]="formCategoria">
                   <li>
                     <div class="custom-control custom-radio">
-                    <input type="radio" id="0" name="category-filter" class="custom-control-input" checked 
-                    (change)="onSelect(0)"/>
+                    <input type="radio" id="0" value="0" formControlname="categoria" name="categoria" class="custom-control-input"
+                    />
                     <label class="custom-control-label" for="0">Todos</label>
                     </div>
                   </li>
                   <li *ngFor="let categoria of categorias">
                       <div class="custom-control custom-radio">
-                      <input type="radio" id="{{categoria.categoriaEnum}}" name="category-filter" class="custom-control-input"
-                      (change)="onSelect(categoria.categoriaEnum)"/>
+                      <input type="radio" id="{{categoria.categoriaEnum}}" value="{{categoria.categoriaEnum}}" formControlname="categoria" name="categoria" class="custom-control-input"
+                      />
                       <label class="custom-control-label" for="{{categoria.categoriaEnum}}">{{categoria.descricao}}</label>
                       </div>
                   </li>
