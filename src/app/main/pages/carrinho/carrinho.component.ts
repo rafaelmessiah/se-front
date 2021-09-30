@@ -19,8 +19,7 @@ export class CarrinhoComponent implements OnInit {
   public contentHeader: object
   public valorTotal: number
 
-  constructor(public carrinhoService: CarrinhoService,
-              private loginService: LoginService) { }
+  constructor(public carrinhoService: CarrinhoService) { }
 
   ngOnInit() {
     this.contentHeader = {
@@ -48,12 +47,6 @@ export class CarrinhoComponent implements OnInit {
       }
     }
 
-    this.loginService.clienteLogado$
-    .pipe(
-      untilDestroyed(this),
-      switchMap(clienteLogado => this.carrinhoService.buscarItens(clienteLogado.clienteId)),
-    ).subscribe()
-
     this.carrinhoService.itensCarrinho$
     .pipe(
       untilDestroyed(this),
@@ -64,5 +57,4 @@ export class CarrinhoComponent implements OnInit {
     )
     .subscribe(valor => this.valorTotal = valor)
   }
-
  }

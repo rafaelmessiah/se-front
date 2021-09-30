@@ -4,6 +4,7 @@ import { CompraService } from '../../compra.service';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { CarrinhoService } from '../../../carrinho/carrinho.service';
 
 @UntilDestroy()
 @Component({
@@ -18,7 +19,8 @@ export class ConfirmarCompraComponent implements OnInit {
   @Input() modal: NgbActiveModal
   confirmada : boolean
 
-  constructor(private compraService: CompraService, 
+  constructor(private compraService: CompraService,
+              private carrinhoService: CarrinhoService,
               private router: Router) { }
 
   ngOnInit() {
@@ -31,7 +33,8 @@ export class ConfirmarCompraComponent implements OnInit {
       untilDestroyed(this)
     )
     .subscribe(() =>{
-      this.confirmada = true
+      this.confirmada = true,
+      this.carrinhoService.esvaziar()
     },err => {
       console.log(err)
     })

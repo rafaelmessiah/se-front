@@ -27,15 +27,6 @@ export class CarrinhoService {
       tap(itens => this._itensCarrinho.next(itens))
     );
   }
-
-  calcularValorTotal(){
-    this.itensCarrinho$
-    .pipe(
-      map(itens => 
-        itens.reduce((a, b) => a += b.qtde, 0)
-      )
-    )
-  }
   
   remover(carrinhoId: number, clienteId: number){
     let itens = this._itensCarrinho.getValue();
@@ -54,9 +45,15 @@ export class CarrinhoService {
   }
   
   inserir(model: SalvarModel){
-    return this.http.post<boolean>(`${API_URL}/carrinho/`, model)
+    let itens = this._itensCarrinho.getValue()
+
+    return this.http.post<ItemCarrinhoModel>(`${API_URL}/carrinho/`, model)
     .pipe(
-      take(1)
+      take(1),
+      tap(item => {
+        itens.push(item),
+        this._itensCarrinho.next(itens)
+      })
     )
   }
 
@@ -75,6 +72,10 @@ export class CarrinhoService {
         this._itensCarrinho.next(itens)
       })
     )
+  }
+
+  esvaziar(){
+    this._itensCarrinho.next([])
   }
 
   obterFrete(cep: string){

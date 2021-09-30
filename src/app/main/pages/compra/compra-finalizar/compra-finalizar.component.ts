@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap, switchMap, map } from 'rxjs/operators';
 import { CarrinhoService } from '../../carrinho/carrinho.service';
 import { ItemCarrinhoModel } from '../../carrinho/models/item-carrinho.model';
 
@@ -13,6 +13,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteService } from '../../cliente/cliente.service';
 import { EnderecoModel } from '../models/endereco.model';
 import { LoginService } from '../../login/login.service';
+import { pipe } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -75,8 +76,22 @@ export class CompraFinalizarComponent implements OnInit {
       }
     }
 
+    //Metodos relacionados aos itens do carrinho----------------------------------------------------------
+    this.carrinhoService.itensCarrinho$
+    .pipe(
+      untilDestroyed(this),
+      tap(itens => this.itens = itens),
+      map(itens => 
+        itens.reduce((a, b) => a += b.preco * b.qtde, 0.00)
+      )
+    )
+    .subscribe(valor => this.valorTotal = valor)
+
     //Pega o clienteId do LoginService
     this.loginService.clienteLogado$
+    .pipe(
+      untilDestroyed(this)
+    )
     .subscribe(cliente => this.clienteId = cliente.clienteId)
 
     /*
@@ -89,33 +104,19 @@ export class CompraFinalizarComponent implements OnInit {
       cartaoCreditoId:[null]
     });
 
-    //Metodos relacionados aos itens do carrinho----------------------------------------------------------
-    this.carrinhoService.buscarItens(this.clienteId)
-    .pipe(
-      untilDestroyed(this)
-    )
-    .subscribe();
-
-    this.carrinhoService.itensCarrinho$
-    .pipe(
-      untilDestroyed(this),
-      tap(itens => this.valorTotal = this.calcularValorTotal(itens))
-    )
-    .subscribe(itens => this.itens = itens);
-
     //Metodos Relacionados ao Cartão de Credito
     this.compraService.buscarCartoes(this.clienteId)
     .pipe(
       untilDestroyed(this)
     )
-    .subscribe();
+    .subscribe()
 
     this.compraService.cartoes$
     .pipe(
       untilDestroyed(this)
     )
     .subscribe(cartoes => this.cartoes = cartoes);
-    
+      
     //Metodos relacionados a compra--------------------------------------------------------------------------
     this.compraService.buscarFormaPagamento()
     .pipe(
@@ -124,13 +125,13 @@ export class CompraFinalizarComponent implements OnInit {
     .subscribe(formas => 
       this.formasPagamento = formas
     );
-
+        
     //  Metodos Relacionados aos Endereços
     this.compraService.buscarEnderecos(this.clienteId)
     .pipe(
       untilDestroyed(this)
     )
-    .subscribe();
+    .subscribe()
 
     this.compraService.enderecos$
     .pipe(
@@ -141,20 +142,11 @@ export class CompraFinalizarComponent implements OnInit {
     );
   }
 
-  calcularValorTotal(itens: ItemCarrinhoModel[]){
-    let valor = 0;
-    itens.forEach(element => {
-      valor += element.qtde * element.preco
-    });
- 
-    return valor
-  }
-
   onSubmit(modalBasic){
-   if(this.iniciarCompraForm.invalid){
-     return;
-   }
-
+    if(this.iniciarCompraForm.invalid){
+      return;
+    }
+    
     this.iniciarCompra = {
       clienteId: this.iniciarCompraForm.controls['clienteId'].value,
       enderecoId: this.iniciarCompraForm.controls['enderecoId'].value,
@@ -164,7 +156,7 @@ export class CompraFinalizarComponent implements OnInit {
     
     this.modalOpen(modalBasic);
   }
-
+          
   ativarCartao(formaPagamento){
     if(formaPagamento == 3){
       this.isCartao = true
@@ -173,13 +165,13 @@ export class CompraFinalizarComponent implements OnInit {
       this.isCartao = false
     }
   }
-
+          
   modalOpen(modalBasic) {
     this.modalRef = this.modalService.open(modalBasic ,
-      {
-        centered:true,
-        backdrop:false
-      });
+    {
+      centered:true,
+      backdrop:false
+    });
   }
 
 }

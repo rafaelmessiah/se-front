@@ -57,6 +57,6 @@ const routes: Routes = [
     SweetAlert2Module.forRoot()
   ],
   declarations: [ProdutoComponent,ProdutoListaComponent,ProdutoRankingComponent,ProdutoDetalheComponent],
-  providers:[ProdutoService, CarrinhoService]
+  providers:[ProdutoService]
 })
 export class ProdutoModule { }

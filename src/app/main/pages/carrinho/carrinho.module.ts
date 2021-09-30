@@ -9,7 +9,6 @@ import { CarrinhoItemComponent } from './carrinho-item/carrinho-item.component';
 import { CoreTouchspinModule } from '../../../../@core/components/core-touchspin/core-touchspin.module';
 import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
 import { CarrinhoResumoComponent } from './carrinho-resumo/carrinho-resumo.component';
-import { CarrinhoService } from './carrinho.service';
 import { AuthGuard } from 'app/autenticacao/auth.guard';
 
 
@@ -34,6 +33,5 @@ const routes: Routes =[
   ],
   declarations: [CarrinhoComponent,CarrinhoItemComponent,CarrinhoResumoComponent],
   exports:[CarrinhoResumoComponent],
-  providers:[CarrinhoService]
 })
 export class CarrinhoModule { }

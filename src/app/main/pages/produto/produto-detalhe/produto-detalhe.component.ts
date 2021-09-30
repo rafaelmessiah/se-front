@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from '../../cliente/cliente.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LoginService } from '../../login/login.service';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
@@ -20,43 +20,52 @@ import { switchMap } from 'rxjs/operators';
 })
 export class ProdutoDetalheComponent implements OnInit {
 
+  clienteId: number
   produto: ProdutoDetalhadoModel
   produtoId: number
   qtde: number = 1
-  inseriu: boolean = false
   inserido: boolean = false
   
   constructor(private produtoService: ProdutoService, 
               private carrinhoService: CarrinhoService,
-              private clienteService: ClienteService,
               private route: ActivatedRoute,
               private loginService: LoginService) { }
 
   ngOnInit() {
-
-    this.route.params.subscribe((params: Params) => {
-      this.produtoId = +params['produtoId']
-    })
-
-    this.produtoService.obter(this.produtoId)
-    .subscribe(produto=>
-      this.produto = produto
-    )
-  }
-
-  inserir(){
+    //Busca o cliente e o Carrinho com Base no Behavior Subject do Login
     this.loginService.clienteLogado$
     .pipe(
       untilDestroyed(this),
-      switchMap(cliente => this.carrinhoService.inserir({
-        produtoId: this.produto.produtoId,
-        clienteId: cliente.clienteId,
-        qtde: this.qtde
-      }))
-    ).subscribe(
-      res => this.inseriu = true,
-      err => this.inserido = true,
+      tap(cliente => this.clienteId = cliente.clienteId),
     )
+    .subscribe()
+
+    this.route.params
+    .pipe(
+      untilDestroyed(this),
+      map((params: Params) => this.produtoId = +params['produtoId']),
+      switchMap(produtoId => this.produtoService.obter(produtoId))
+    )
+    .subscribe(produto => this.produto = produto)
+
+    //Verifica
+    this.carrinhoService.itensCarrinho$
+    .pipe(
+      map(produtos => produtos.some(a => a.produtoId == this.produtoId))
+    )
+    .subscribe(isInserido => this.inserido = isInserido)
+  }
+
+  inserir(){
+    this.carrinhoService.inserir({
+      produtoId: this.produto.produtoId,
+      clienteId: this.clienteId,
+      qtde: this.qtde
+    })
+    .pipe(
+      untilDestroyed(this)
+    )
+    .subscribe()
   }
 
   alterarQtde(novaQtde) {

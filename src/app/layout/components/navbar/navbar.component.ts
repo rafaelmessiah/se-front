@@ -3,7 +3,7 @@ import { MediaObserver } from '@angular/flex-layout';
 
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from 'app/auth/service';
@@ -16,6 +16,7 @@ import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../main/pages/login/login.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { CarrinhoService } from '../../../main/pages/carrinho/carrinho.service';
 
 @UntilDestroy()
 @Component({
@@ -39,6 +40,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public selectedLanguage: any;
 
   public clienteNome: string
+  public qtdeItens: number
 
   @HostBinding('class.fixed-top')
   public isFixed = false;
@@ -86,6 +88,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService,
     private loginService: LoginService,
+    private carrinhoService: CarrinhoService,
   ) {
     this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
@@ -180,10 +183,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
     //Puxa o nome do Usuario pelo LoginService
     this.loginService.clienteLogado$
     .pipe(
-      untilDestroyed(this)
+      untilDestroyed(this),
+      tap(cliente => this.clienteNome = cliente.nome),
+      switchMap(cliente => this.carrinhoService.buscarItens(cliente.clienteId))
     )
-    .subscribe(cliente => this.clienteNome = cliente.nome)
+    .subscribe()
 
+    this.carrinhoService.itensCarrinho$
+    .pipe(
+      map(itens => itens.length)
+    ).subscribe(qtde => this.qtdeItens = qtde)
+
+
+
+    
     // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
