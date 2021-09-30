@@ -44,5 +44,4 @@ export class ConfirmarCompraComponent implements OnInit {
     this.modal.close(),
     this.router.navigate(['/produto'])
   }
-
 }

@@ -36,9 +36,8 @@ export class ProdutoDetalheComponent implements OnInit {
     this.loginService.clienteLogado$
     .pipe(
       untilDestroyed(this),
-      tap(cliente => this.clienteId = cliente.clienteId),
     )
-    .subscribe()
+    .subscribe(cliente => this.clienteId = cliente.clienteId)
 
     this.route.params
     .pipe(
@@ -48,9 +47,10 @@ export class ProdutoDetalheComponent implements OnInit {
     )
     .subscribe(produto => this.produto = produto)
 
-    //Verifica
+    //Verifica se o Produto Esta no carrinho
     this.carrinhoService.itensCarrinho$
     .pipe(
+      untilDestroyed(this),
       map(produtos => produtos.some(a => a.produtoId == this.produtoId))
     )
     .subscribe(isInserido => this.inserido = isInserido)
