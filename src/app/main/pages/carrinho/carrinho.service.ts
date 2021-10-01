@@ -28,7 +28,7 @@ export class CarrinhoService {
     );
   }
   
-  remover(carrinhoId: number, clienteId: number){
+  remover(carrinhoId: number){
     let itens = this._itensCarrinho.getValue();
     let excluido = itens.find(i => i.carrinhoId);
     itens = itens.filter(i => i.carrinhoId != carrinhoId);

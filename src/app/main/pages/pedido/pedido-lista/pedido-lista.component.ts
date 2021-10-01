@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import { tap, switchMap } from 'rxjs/operators';
 import { LoginService } from '../../login/login.service';
 import { CompraItemModel } from '../models/compra-item.model';
 import { PedidoService } from '../pedido.service';
@@ -21,7 +22,7 @@ export class PedidoListaComponent implements OnInit {
 
   ngOnInit() {
     this.contentHeader = {
-      headerTitle: 'Finalizar Compra',
+      headerTitle: 'Meus Pedidos',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -31,21 +32,6 @@ export class PedidoListaComponent implements OnInit {
             isLink: true,
             link: '/'
           },
-          {
-            name: 'Produtos',
-            isLink: true,
-            link: '/produto'
-          },
-          {
-            name: 'Carrinho',
-            isLink: true,
-            link: '/carrinho'
-          },
-          {
-            name: 'Finalizar Compra',
-            isLink: false,
-            link: '/compra/finalizar'
-          },
         ]
       }
     }
@@ -53,14 +39,9 @@ export class PedidoListaComponent implements OnInit {
     this.loginService.clienteLogado$
     .pipe(
       untilDestroyed(this),
-    )
-    .subscribe(cliente => this.clienteId = cliente.clienteId)
-
-    this.pedidoService.buscarPedidos(this.clienteId)
-    .pipe(
-      untilDestroyed(this)
+      tap(cliente => this.clienteId = cliente.clienteId),
+      switchMap(cliente => this.pedidoService.buscarPedidos(cliente.clienteId))
     )
     .subscribe(pedidos => this.pedidos = pedidos)
   }
-
 }

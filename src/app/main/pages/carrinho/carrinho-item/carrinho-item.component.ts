@@ -14,8 +14,6 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 export class CarrinhoItemComponent implements OnInit {
 
   @Input() item: ItemCarrinhoModel;
-  @Output() itemChange = new EventEmitter<number>();
-  clienteId = 1;
 
   constructor(private carrinhoService :CarrinhoService) { }
 
@@ -24,13 +22,11 @@ export class CarrinhoItemComponent implements OnInit {
   }
 
   removerItem(){
-    this.carrinhoService.remover(this.item.carrinhoId, this.clienteId)
+    this.carrinhoService.remover(this.item.carrinhoId)
     .pipe(
       untilDestroyed(this)
     )
-    .subscribe(respota=>{
-      console.log(respota);
-    })
+    .subscribe()
   }
 
   alterarQtde(qtde: number){
@@ -38,8 +34,6 @@ export class CarrinhoItemComponent implements OnInit {
     .pipe(
       untilDestroyed(this)
     )
-    .subscribe(resposta =>
-      console.log(resposta)
-    )
+    .subscribe()
   }
 }

@@ -16,6 +16,8 @@ import { NavbarBookmarkComponent } from 'app/layout/components/navbar/navbar-boo
 import { NavbarSearchComponent } from 'app/layout/components/navbar/navbar-search/navbar-search.component';
 
 import { NavbarNotificationComponent } from 'app/layout/components/navbar/navbar-notification/navbar-notification.component';
+import { NavbarCarrinhoComponent } from './navbar-carrinho/navbar-carrinho.component';
+import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -23,8 +25,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [NavbarComponent, NavbarSearchComponent, NavbarBookmarkComponent, NavbarNotificationComponent],
-  imports: [RouterModule, NgbModule, CoreCommonModule, PerfectScrollbarModule, CoreTouchspinModule],
+  declarations: [NavbarComponent, NavbarSearchComponent, NavbarBookmarkComponent, NavbarNotificationComponent, NavbarCarrinhoComponent],
+  imports: [RouterModule, NgbModule, CoreCommonModule, PerfectScrollbarModule, CoreTouchspinModule, NgxNumberSpinnerModule],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

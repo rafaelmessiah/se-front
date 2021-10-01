@@ -29,7 +29,7 @@ export class PedidoDetalheComponent implements OnInit {
 
   ngOnInit() {
     this.contentHeader = {
-      headerTitle: 'Finalizar Compra',
+      headerTitle: 'Pedido Detalhe',
       actionButton: true,
       breadcrumb: {
         type: '',
@@ -40,20 +40,11 @@ export class PedidoDetalheComponent implements OnInit {
             link: '/'
           },
           {
-            name: 'Produtos',
+            name: 'Meus Pedidos',
             isLink: true,
-            link: '/produto'
+            link: '/pedido'
           },
-          {
-            name: 'Carrinho',
-            isLink: true,
-            link: '/carrinho'
-          },
-          {
-            name: 'Finalizar Compra',
-            isLink: false,
-            link: '/compra/finalizar'
-          },
+         
         ]
       }
     }

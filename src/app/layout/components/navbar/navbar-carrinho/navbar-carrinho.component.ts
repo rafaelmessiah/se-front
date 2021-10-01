@@ -1,20 +1,20 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { CarrinhoService } from '../carrinho.service';
-import { ItemCarrinhoModel } from '../models/item-carrinho.model';
+import { Component, OnInit } from '@angular/core';
+import { CarrinhoService } from 'app/main/pages/carrinho/carrinho.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, tap } from 'rxjs/operators';
+import { ItemCarrinhoModel } from '../../../../main/pages/carrinho/models/item-carrinho.model';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-carrinho-resumo',
-  templateUrl: './carrinho-resumo.component.html',
-  styleUrls: ['./carrinho-resumo.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-navbar-carrinho',
+  templateUrl: './navbar-carrinho.component.html',
+  styleUrls: ['./navbar-carrinho.component.scss']
 })
-export class CarrinhoResumoComponent implements OnInit {
+export class NavbarCarrinhoComponent implements OnInit {
 
-  itens: ItemCarrinhoModel[]
+  itens: ItemCarrinhoModel[] = []
   valorTotal: number
+  qtde: number
 
   constructor(private carrinhoService: CarrinhoService) { }
 
@@ -23,6 +23,7 @@ export class CarrinhoResumoComponent implements OnInit {
     .pipe(
       untilDestroyed(this),
       tap(itens => this.itens = itens),
+      tap(itens => this.qtde = itens.length),
       map(itens => 
         itens.reduce((a, b) => a += b.preco * b.qtde, 0.00)
       )
@@ -45,4 +46,5 @@ export class CarrinhoResumoComponent implements OnInit {
     )
     .subscribe()
   }
+
 }

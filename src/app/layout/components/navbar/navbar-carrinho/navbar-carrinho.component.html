@@ -1,0 +1,61 @@
+<li ngbDropdown class="nav-item dropdown-cart mr-25">
+  <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarCartDropdown"
+    ><span [data-feather]="'shopping-cart'" [class]="'ficon'"></span
+    ><span class="badge badge-pill badge-primary badge-up cart-item-count">{{ qtde }}</span></a
+  >
+  <ul
+    ngbDropdownMenu
+    aria-labelledby="navbarCartDropdown"
+    class="dropdown-menu dropdown-menu-media dropdown-menu-right"
+  >
+    <!-- Cart header -->
+    <li class="dropdown-menu-header">
+      <div class="dropdown-header d-flex">
+        <h4 class="notification-title mb-0 mr-auto">Meu Carrinho</h4>
+        <div class="badge badge-pill badge-light-primary">{{ qtde }} Items</div>
+      </div>
+    </li>
+    <!--/ Cart header -->
+
+    <!-- Cart content -->
+    <li class="scrollable-container media-list" [perfectScrollbar]>
+      <ng-container *ngIf="itens.length">
+        <ng-container *ngFor="let item of itens">
+          <div class="media align-items-center" >
+            <img class="d-block rounded mr-1" src="../../../.././../assets/images/produtos/{{item.imagem}}" alt="donuts" width="62" />
+            <div class="media-body">
+              <button class="btn p-0" (click)="remover(item.carrinhoId)">
+                <i class="ficon cart-item-remove" data-feather="x"></i>
+              </button>
+              <div class="media-heading">
+                <h6 class="cart-item-title">
+                  <a class="text-body" routerLink="/produto/detalhe/{{item.produtoId}}">{{
+                    item.nome
+                  }}</a>
+                </h6>
+              </div>
+              <div class="cart-item-qty">
+                <div class="input-group touchspin-cart">
+                  <ngx-number-spinner  [value]="item.qtde" [min]="1" (change)="alterarQtde($event, item.carrinhoId)"> </ngx-number-spinner>
+                </div>
+              </div>
+              <h5 class="cart-item-price">{{ item.preco | currency }}</h5>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </li>
+    <!--/ Cart content -->
+
+    <!-- Cart footer -->
+    <li class="dropdown-menu-footer">
+      <div class="d-flex justify-content-between mb-1">
+        <h6 class="font-weight-bolder mb-0">Valor Total:</h6>
+        <h6 class="text-primary font-weight-bolder mb-0">{{valorTotal | currency}}</h6>
+      </div>
+      <a class="btn btn-outline-primary btn-block text-white" routerLink="/carrinho">Ver Detalhes do Carrinho</a>
+      <a class="btn btn-primary btn-block" routerLink="/compra/finalizar">Finalizar</a>
+    </li>
+    <!--/ Cart footer -->
+  </ul>
+</li>
